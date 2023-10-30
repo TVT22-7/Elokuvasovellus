@@ -1,14 +1,22 @@
 import React from 'react';
-import './App.css';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Login from './pages/Login/Login';
+import Home from './pages/Home/Home';
+import Start from './pages/Start/Start';
+
 
 function App() {
     return (
-        <div className="App">
-            <h1>Elokuvasovellus</h1>
-            <button onClick={() => alert('Login clicked!')}>Login</button>
-            <button onClick={() => alert('Sign Up clicked!')}>Sign Up</button>
-        </div>
-    );
+        <Router>
+            <div className="App">
+                <Routes>
+                    <Route exact path="/" element={Start} />
+                    <Route path="/login" element={Login} />
+                    <Route path="/home" element={Home} />
+                </Routes>
+            </div>
+        </Router>
+    );  
 }
 
 export default App;
