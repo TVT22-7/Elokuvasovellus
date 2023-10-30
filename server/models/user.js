@@ -4,7 +4,7 @@ const db = pgp(config.databaseURL);
 
 const User = {
   findAll: async () => {
-    return await db.any('SELECT * FROM users;');
+    return await db.any('SELECT * FROM users');
   }
 };
 
