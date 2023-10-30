@@ -6,6 +6,16 @@ function LoginPage() {
         <div>
             <h1>Elokuvasovellus login</h1>
 
+            <div>
+                <label htmlFor="username">Username:</label>
+                <input type="text" id="username" name="username" />
+            </div>
+
+            <div>
+                <label htmlFor="password">Password:</label>
+                <input type="password" id="password" name="password" />
+            </div>
+
             <Link to="/home">
                 <button>Home</button>
             </Link>
