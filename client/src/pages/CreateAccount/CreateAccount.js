@@ -15,6 +15,21 @@ import './CreateAccount.css';
                 <input type="password" id="password" name="password" />
             </div>
 
+            <div>
+                <label htmlFor=" create username"> Create Username:</label>
+                <input type="text" id="username" name="username" />
+            </div>
+
+            <div>
+                <label htmlFor="password">Create Password:</label>
+                <input type="password" id="password" name="password" />
+            </div>
+
+            <div>
+                <label htmlFor="password"> Repeat Password:</label>
+                <input type="password" id="password" name="password" />
+            </div>
+
             <Link to="/home">
                 <button>Home</button>
             </Link>
