@@ -10,8 +10,8 @@ function Start() {
                 <button>Login</button>
             </Link>
 
-            <Link to="/CreateAccount">
-                <button>create account</button>
+            <Link to="/Register">
+                <button>SignUp</button>
             </Link>
         </div>
     );
