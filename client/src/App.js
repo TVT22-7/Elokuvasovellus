@@ -15,10 +15,10 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Start />} />
                     <Route path="/login" element={<Login />} /> 
-                    <Route path="/CreateAccount" element={<CreateAccount />} /> 
+                    <Route path="/create-account" element={<CreateAccount />} /> 
                     <Route path="/home" element={<Home />} /> 
                     <Route path="/settings" element={<Settings />} />
-                    <Route path="/friendGroups" element={<FriendGroups />} />
+                    <Route path="/friend-groups" element={<FriendGroups />} />
                 </Routes>
             </div>
         </Router>
