@@ -1,10 +1,25 @@
+
+import React from 'react';
+import axios from 'axios';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Home.css';
 
 
 function HomePage() {
+    const handleButtonClick = async () => {
+        try {
+            const response = await axios.get('http://localhost:3000/api/users');
+            console.log(response.data);
+        }   catch (error) {
+            console.log(error);
+        }
+    };
+
+
+
   const [isNavOpen, setIsNavOpen] = useState(false);
+
 
   const toggleNav = () => {
     setIsNavOpen(!isNavOpen);
