@@ -1,14 +1,28 @@
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Login from './pages/Login/Login';
+import Home from './pages/Home/Home';
+import Start from './pages/Start/Start';
+import CreateAccount from './pages/CreateAccount/CreateAccount';
+import Settings from './pages/settings/Settings';
+import FriendGroups from './pages/friendGroups/FriendGroups';
 import './App.css';
 
 function App() {
     return (
-        <div className="App">
-            <h1>Elokuvasovellus</h1>
-            <button onClick={() => alert('Login clicked!')}>Login</button>
-            <button onClick={() => alert('Sign Up clicked!')}>Sign Up</button>
-        </div>
-    );
+        <Router>
+            <div className="App">
+                <Routes>
+                    <Route path="/" element={<Start />} />
+                    <Route path="/login" element={<Login />} /> 
+                    <Route path="/CreateAccount" element={<CreateAccount />} /> 
+                    <Route path="/home" element={<Home />} /> 
+                    <Route path="/settings" element={<Settings />} />
+                    <Route path="/friendGroups" element={<FriendGroups />} />
+                </Routes>
+            </div>
+        </Router>
+    );  
 }
 
 export default App;
