@@ -6,6 +6,7 @@ import Start from './pages/Start/Start';
 import CreateAccount from './pages/CreateAccount/CreateAccount';
 import Settings from './pages/settings/Settings';
 import FriendGroups from './pages/friendGroups/FriendGroups';
+import Auth from './pages/Auth/Auth';
 import './App.css';
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
                     <Route path="/home" element={<Home />} /> 
                     <Route path="/settings" element={<Settings />} />
                     <Route path="/friend-groups" element={<FriendGroups />} />
+                    <Route path="/auth" element={<Auth />} />
                 </Routes>
             </div>
         </Router>
