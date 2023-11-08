@@ -1,18 +1,17 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useCookies } from 'react-cookie'; // Import useCookies
+import React, { useState, useEffect } from 'react'; 
+import { useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie'; 
 import './Home.css';
 import { useQuery } from '@tanstack/react-query';
 import Menu from '../../components/Navigation/Navigation';
 import Review from '../../components/Review/Review'; 
 
 function HomePage() {
-  const [isNavOpen, setIsNavOpen] = useState(false);
-  const [cookies, setCookie, removeCookie] = useCookies(['AuthToken']);
+  const [, , removeCookie] = useCookies(['AuthToken']);
   const navigate = useNavigate();
 
   const [searchTerm, setSearchTerm] = useState('');
-  const [movies, setMovies] = useState([]); 
+  const [movies, setMovies] = useState([]);
 
   const { data: reviews, error, isLoading } = useQuery({
     queryKey: ['movieReviews', searchTerm],
@@ -31,7 +30,6 @@ function HomePage() {
     setSearchTerm(e.target.value);
   }
 
-
   async function handleSearchClick() {
     try {
       const response = await fetch(`http://localhost:3000/api/movies/?search=${searchTerm}`);
@@ -45,28 +43,22 @@ function HomePage() {
     }
   }
 
-
-
-
   const handleSignOut = () => {
     removeCookie('AuthToken', { path: '/' });
     removeCookie('Username', { path: '/' }); 
     navigate('/');
   };
 
-  const buttonText = isNavOpen ? "Sulje valikko" : "Avaa valikko";
-
   useEffect(() => {
     fetchMovieReviews('');
   }, []);
 
-
   return (
-    
     <div>
       <Menu />
       <h1>Elokuvasovellus home</h1>
       <p>Search for movies and see their reviews</p>
+      <button onClick={handleSignOut} className="sign-out-button">Sign Out</button>
       <div>
         <input
           type="text"
@@ -95,7 +87,6 @@ function HomePage() {
           ))}
         </ul>
       )}
-      <button onClick={handleSignOut} className="sign-out-button">Sign Out</button> {/* Sign out button */}
     </div>
   );
 }
