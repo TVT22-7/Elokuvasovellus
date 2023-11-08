@@ -45,6 +45,7 @@ function HomePage() {
   }, []);
 
   return (
+    
     <div>
       <Menu />
       <h1>Elokuvasovellus home</h1>
