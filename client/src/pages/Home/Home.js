@@ -1,10 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie'; // Import useCookies
 import './Home.css';
 import { useQuery } from '@tanstack/react-query';
 import Menu from '../../components/Navigation/Navigation';
 import Review from '../../components/Review/Review'; 
 
 function HomePage() {
+  const [isNavOpen, setIsNavOpen] = useState(false);
+  const [cookies, setCookie, removeCookie] = useCookies(['AuthToken']);
+  const navigate = useNavigate();
+
   const [searchTerm, setSearchTerm] = useState('');
   const [movies, setMovies] = useState([]); 
 
@@ -40,9 +46,20 @@ function HomePage() {
   }
 
 
+
+
+  const handleSignOut = () => {
+    removeCookie('AuthToken', { path: '/' });
+    removeCookie('Username', { path: '/' }); 
+    navigate('/');
+  };
+
+  const buttonText = isNavOpen ? "Sulje valikko" : "Avaa valikko";
+
   useEffect(() => {
     fetchMovieReviews('');
   }, []);
+
 
   return (
     
@@ -78,6 +95,7 @@ function HomePage() {
           ))}
         </ul>
       )}
+      <button onClick={handleSignOut} className="sign-out-button">Sign Out</button> {/* Sign out button */}
     </div>
   );
 }

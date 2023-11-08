@@ -20,7 +20,7 @@ function Navigation() {
             <ul>
               <li><Link to="/">Home</Link></li>
               <li><Link to="/settings">Settings</Link></li>
-              <li><Link to="/friendGroups">Friend Groups</Link></li>
+              <li><Link to="/friend-groups">Friend Groups</Link></li>
             </ul>
           </div>
         )}
