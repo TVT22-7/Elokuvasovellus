@@ -8,6 +8,7 @@ import Settings from './pages/settings/Settings';
 import FriendGroups from './pages/friendGroups/FriendGroups';
 import './App.css';
 
+
 function App() {
     return (
         <Router>
