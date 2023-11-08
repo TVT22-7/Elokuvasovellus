@@ -9,6 +9,7 @@ import FriendGroups from './pages/friendGroups/FriendGroups';
 import Auth from './pages/Auth/Auth';
 import './App.css';
 
+
 function App() {
     return (
         <Router>
