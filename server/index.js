@@ -3,14 +3,17 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const routes = require('./routes/userRoutes');
+const userRoutes = require('./routes/userRoutes');
+const reviweRoutes = require('./routes/reviewRoutes');
 
 const PORT = process.env.PORT || 3000;
 
 app.use(express.static('public'));
+app.use(express.json());
 app.use(cors());
 app.use(bodyParser.json());
-app.use('/api', routes);
+app.use('/api', userRoutes);
+app.use('/api', reviweRoutes);
 
 app.get('/', (req, res) => {
     res.send('Server is running!');
