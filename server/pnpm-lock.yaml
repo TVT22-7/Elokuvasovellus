@@ -20,6 +20,9 @@ dependencies:
   mongoose:
     specifier: ^7.6.3
     version: 7.6.3
+  pg:
+    specifier: ^8.11.3
+    version: 8.11.3
   pg-promise:
     specifier: ^11.5.4
     version: 11.5.4

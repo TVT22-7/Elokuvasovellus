@@ -1,6 +1,4 @@
-const pgp = require('pg-promise')();
-const config = require('../config');
-const db = pgp(config.databaseURL);
+const db = require('../db');
 
 const User = {
   findAll: async () => {
