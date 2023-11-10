@@ -3,16 +3,18 @@ const { getUsers, getUser, updateUser, deleteUser, signupUser, loginUser } = req
 
 const router = express.Router();
 
-router.get('/users', getUsers);
+router.route("/users")
+    .get(getUsers);
 
-router.get('/users/:id', getUser);
+router.route("/users/:id")
+    .get(getUser)
+    .patch(updateUser)
+    .delete(deleteUser);
 
-router.patch('/users/:id', updateUser);
+router.route("/signup")
+    .post(signupUser);
 
-router.delete('/users/:id', deleteUser);
-
-router.post('/signup', signupUser);
-
-router.post('/login', loginUser);
+router.route("/login")
+    .post(loginUser);
 
 module.exports = router;
