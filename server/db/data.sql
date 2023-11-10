@@ -89,9 +89,10 @@ CREATE TABLE
     );
 
 INSERT INTO
-    users (id, name, user_email)
+    users (user_id, username, user_email, password)
 VALUES (
         '1',
-        'Veikka',
-        'veikka@example.com'
+        'Otso',
+        'mail@example.com',
+        '1234'
     );
