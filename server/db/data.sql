@@ -92,6 +92,6 @@ INSERT INTO
     users (id, name, user_email)
 VALUES (
         '1',
-        'Veikka',
-        'veikka@example.com'
+        'leevi',
+        'leevi@example.com'
     );
