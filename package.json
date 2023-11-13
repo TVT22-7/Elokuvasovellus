@@ -1,6 +1,10 @@
 {
   "scripts": {
     "test": "mocha"
+  },
+  "engines": {
+    "node": ">=16.14"
   }
+  
 }
 
