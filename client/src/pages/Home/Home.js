@@ -81,7 +81,7 @@ function HomePage() {
       ) : error ? (
         <div>Error: {error.message}</div>
       ) : (
-        <ul>
+        <ul style={{ listStyleType: 'none' }}>
           {reviews?.map((review) => (
             <Review key={review.review_id} review={review} />
           ))}
