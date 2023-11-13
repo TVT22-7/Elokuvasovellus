@@ -4,7 +4,11 @@
   },
   "engines": {
     "node": ">=16.14"
+  },
+  "scripts": {
+    "build": "cd client && npm run build",
   }
+  
   
 }
 
