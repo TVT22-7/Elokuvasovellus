@@ -1,12 +1,12 @@
 {
   "scripts": {
     "test": "mocha",
-    "build": "cd client && npm run build"
-
+    "build": "cd client && npm install && npm run build"
   },
   "engines": {
     "node": ">=16.14"
+  },
+  "dependencies": {
+    "react-scripts": "^5.0.1"
   }
-  
 }
-
