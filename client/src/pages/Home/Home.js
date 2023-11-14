@@ -1,4 +1,3 @@
-require('dotenv').config();
 import React, { useState, useEffect } from 'react'; 
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie'; 
@@ -6,7 +5,6 @@ import './Home.css';
 import { useQuery } from '@tanstack/react-query';
 import Menu from '../../components/Navigation/Navigation';
 import Review from '../../components/Review/Review'; 
-
 
 
 function HomePage() {
@@ -35,7 +33,7 @@ function HomePage() {
 
   async function handleSearchClick() {
     try {
-      const response = await fetch(`${process.env.REACT_APP_ADDRESS}/api/reviews/?search=${searchTerm}`);
+      const response = await fetch(`${process.env.REACT_APP_ADDRESS}/api/movies/?search=${searchTerm}`);
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
