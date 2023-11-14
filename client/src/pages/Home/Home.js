@@ -1,3 +1,4 @@
+require('dotenv').config();
 import React, { useState, useEffect } from 'react'; 
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie'; 
@@ -5,6 +6,8 @@ import './Home.css';
 import { useQuery } from '@tanstack/react-query';
 import Menu from '../../components/Navigation/Navigation';
 import Review from '../../components/Review/Review'; 
+
+
 
 function HomePage() {
   const [, , removeCookie] = useCookies(['AuthToken']);
@@ -19,7 +22,7 @@ function HomePage() {
   });
 
   async function fetchMovieReviews(search) {
-    const response = await fetch(`http://localhost:3000/api/reviews/${search ? `?search=${search}` : ''}`);
+    const response = await fetch(`${process.env.REACT_APP_ADDRESS}/api/reviews/${search ? `?search=${search}` : ''}`);
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
@@ -32,7 +35,7 @@ function HomePage() {
 
   async function handleSearchClick() {
     try {
-      const response = await fetch(`http://localhost:3000/api/movies/?search=${searchTerm}`);
+      const response = await fetch(`${process.env.REACT_APP_ADDRESS}/api/reviews/?search=${searchTerm}`);
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }

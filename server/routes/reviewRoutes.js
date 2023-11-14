@@ -3,12 +3,12 @@ const reviewController = require('../controllers/reviewController');
 const router = express.Router();
 
 // Route to get all reviews
-router.get('/reviews', reviewController.getReviews);
+router.get('/', reviewController.getReviews);
 
 // Route to get a single review by ID
-router.get('/reviews/:id', reviewController.getReview);
+router.get('/:id', reviewController.getReview);
 
 // Route to add a new review
-router.post('/reviews', reviewController.addReview);
+router.post('/', reviewController.addReview);
 
 module.exports = router;
