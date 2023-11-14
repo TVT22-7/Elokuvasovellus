@@ -31,7 +31,7 @@ function Auth() {
 
     try {
       const response = await fetch(
-        `http://localhost:3000/api/users/${endpoint}`,
+        `${process.env.REACT_APP_ADDRESS}/api/users/${endpoint}`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
