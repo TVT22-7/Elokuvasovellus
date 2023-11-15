@@ -3,13 +3,13 @@ const { getUsers, getUser, updateUser, deleteUser, signupUser, loginUser } = req
 
 const router = express.Router();
 
-router.get('/users', getUsers);
+router.get('/', getUsers);
 
-router.get('/users/:id', getUser);
+router.get('/:id', getUser);
 
-router.patch('/users/:id', updateUser);
+router.patch('/:id', updateUser);
 
-router.delete('/users/:id', deleteUser);
+router.delete('/:id', deleteUser);
 
 router.post('/signup', signupUser);
 
