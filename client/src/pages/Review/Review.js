@@ -1,26 +1,22 @@
 import React, { useState, useEffect } from 'react'; 
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie'; 
-import './Home.css';
 import { useQuery } from '@tanstack/react-query';
 import Menu from '../../components/Navigation/Navigation';
 import Review from '../../components/Review/Review'; 
 
 
-function HomePage() {
-  const [, , removeCookie] = useCookies(['AuthToken']);
-  const navigate = useNavigate();
-
+function Review() {
   const [searchTerm, setSearchTerm] = useState('');
   const [movies, setMovies] = useState([]);
 
-  const { data: popularMovies, error, isLoading } = useQuery({
-    queryKey: ['popularMovies', searchTerm],
-    queryFn: () => fetchPopularMovies(searchTerm),
+  const { data: reviews, error, isLoadings} = useQuery({
+    queryKey: ['movieReviews', searchTerm],
+    queryFn: () => fetchMovieReviews(searchTerm),
   });
-  
-  async function fetchPopularMovies(search) {
-    const response = await fetch(`${process.env.REACT_APP_ADDRESS}/movies/popular/${search ? `?search=${search}` : ''}`);
+
+  async function fetchMovieReviews(search) {
+    const response = await fetch(`${process.env.REACT_APP_ADDRESS}/api/reviews/${search ? `?search=${search}` : ''}`);
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
@@ -43,23 +39,14 @@ function HomePage() {
       console.error('Failed to fetch movies:', error);
     }
   }
-
-  // Authentication remove cookie
-  const handleSignOut = () => {
-    removeCookie('AuthToken', { path: '/' });
-    removeCookie('Username', { path: '/' }); 
-    navigate('/');
-  };
-
   useEffect(() => {
-    fetchPopularMovies('');
+    fetchMovieReviews('');
   }, []);
 
   return (
     <div>
-      <Menu />
-      <h1>Elokuvasovellus home</h1>
-      <p>Search for movies and see tpopularMovies</p>
+      <h1>Elokuvasovellus Reviews</h1>
+      <p>Search for movies and see their reviews</p>
       <button onClick={handleSignOut} className="sign-out-button">Sign Out</button>
       <div>
         <input
@@ -84,13 +71,13 @@ function HomePage() {
         <div>Error: {error.message}</div>
       ) : (
         <ul style={{ listStyleType: 'none' }}>
-        {movies?.map((movies) => (
-          <Movies key={movies.review_id} review={movies} />
-        ))}
-      </ul>
+          {reviews?.map((review) => (
+            <Review key={review.review_id} review={review} />
+          ))}
+        </ul>
       )}
     </div>
   );
 }
 
-export default HomePage;
+export default Review;
