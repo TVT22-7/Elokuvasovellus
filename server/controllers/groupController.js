@@ -24,4 +24,5 @@ const GroupController = {
         }
         create: async (group_name, group_description, group_image) => {
             return await db.one('INSERT INTO groups (group_name, group_description, group_image) VALUES ($1, $2, $3) RETURNING *', [group_name, group_description, group_image]);
-        }
+    
+        }}};
