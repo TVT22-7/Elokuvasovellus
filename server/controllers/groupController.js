@@ -70,3 +70,6 @@ exports.addMemberToGroup = async (req, res) => {
         res.status(500).json({ error: 'An error occurred while adding a member to the group' });
     }
 };
+
+
+// lisää loput funktiot tähän

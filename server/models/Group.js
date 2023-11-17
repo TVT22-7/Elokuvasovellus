@@ -1,7 +1,5 @@
-const { Model } = require('mongoose');
+const sequelize = require('sequelize');
 const db = require('../db');
-
-class Group extends Model { }
 
 const Group = {
 
