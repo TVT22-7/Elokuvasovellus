@@ -1,28 +1,72 @@
+const GroupMembers = require('../models/GroupMembers');
 const Group = require('../models/Group');
-const GroupMember = require('../models/GroupMember');
 const User = require('../models/User');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 
-const GroupController = {
-    async addMember(req, res) {
-        const { group_id, user_id } = req.body;
+// Get all group members
+exports.getGroupMembers = async (req, res) => {
+    try {
+        const groupMembers = await GroupMembers.findAll(); // Fix the variable name
+        res.json(groupMembers);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
 
-        try {
-            const group = await Group.findById(group_id);
-            const user = await User.findById(user_id);
-
-            if (!group) {
-                return res.status(404).json({ error: 'Group not found' });
-            }
-
-            await GroupMember.create({group_id, user_id});
-            res.json({ message: 'Member added' });
-            
-        } catch (error) {
-            res.status(500).json({ error: InternalServerError });
+// Get a single group member by ID
+exports.getGroupMember = async (req, res) => {
+    try {
+        const groupMember = await GroupMembers.findById(req.params.id); // Fix the variable name
+        if (groupMember) {
+            res.json(groupMember);
+        } else {
+            res.status(404).send('Group member not found');
         }
-        create: async (group_name, group_description, group_image) => {
-            return await db.one('INSERT INTO groups (group_name, group_description, group_image) VALUES ($1, $2, $3) RETURNING *', [group_name, group_description, group_image]);
-    
-        }}};
+    } catch (err) {
+        res.status(500).send(err.message);
+    }
+};
+
+// Update group member information
+exports.updateGroupMember = async (req, res) => { // Fix the function name
+    try {
+        const updatedGroupMember = await GroupMembers.update(req.params.id, req.body);
+        res.json(updatedGroupMember);
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+};
+
+// Delete a group member
+exports.deleteGroupMember = async (req, res) => {
+    try {
+        await GroupMembers.delete(req.params.id); // Fix the function name
+        res.send({ message: 'Group member removed' });
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+};
+
+// Add a member to a group
+exports.addMemberToGroup = async (req, res) => {
+    const { group_id, user_id, status } = req.body;
+
+    try {
+        const groupMemberExists = await GroupMembers.findOne({
+            where: {
+                group_id,
+                user_id,
+            },
+        });
+
+        if (groupMemberExists) {
+            return res.status(409).json({ error: 'User is already a member of the group' });
+        }
+
+        const newGroupMember = await GroupMembers.create({ group_id, user_id, status }); // Fix the parameter
+
+        res.status(201).json(newGroupMember);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'An error occurred while adding a member to the group' });
+    }
+};
