@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const userRoutes = require('./routes/userRoutes');
 const reviewRoutes = require('./routes/reviewRoutes');
+const groupRoutes = require('./routes/groupRoutes');
+
 
 const PORT = process.env.PORT || 3000;
 
@@ -15,6 +17,8 @@ app.use(bodyParser.json());
 app.use('/api', userRoutes);
 app.use('/api', reviewRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/groups', groupRoutes);
+
 
 app.get('/', (req, res) => {
     res.send('Server is running!');
