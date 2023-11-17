@@ -69,6 +69,38 @@ exports.addMemberToGroup = async (req, res) => {
         console.error(error);
         res.status(500).json({ error: 'An error occurred while adding a member to the group' });
     }
+
+    exports.deleteGroup = async (req, res) => {
+        try {
+            await Group.delete(req.params.id); // Fix the function name
+            res.send({ message: 'Group removed' });
+        } catch (error) {
+            res.status(500).send(error.message);
+        }
+    }
+
+    exports.createGroup = async (req, res) => {
+        const { name, description, user_id } = req.body;
+
+        try {
+            const groupExists = await Group.findOne({
+                where: {
+                    name,
+                },
+            });
+
+            if (groupExists) {
+                return res.status(409).json({ error: 'Group already exists' });
+            }
+
+            const newGroup = await Group.create({ name, description, user_id }); // Fix the parameter
+
+            res.status(201).json(newGroup);
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ error: 'An error occurred while creating the group' });
+        }
+    };
 };
 
 
