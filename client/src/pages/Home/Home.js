@@ -11,7 +11,7 @@ function HomePage() {
   const navigate = useNavigate();
 
   const [searchTerm, setSearchTerm] = useState('');
-  const { data: movies, error, isLoading } = useQuery({
+  const { data: responseData, error, isLoading } = useQuery({
     queryKey: ['popularMovies', searchTerm],
     queryFn: () => fetchMovies(searchTerm),
   });
@@ -26,11 +26,7 @@ function HomePage() {
       }
 
       const responseData = await response.json();
-
-
-      const moviesData = Array.isArray(responseData) ? responseData : [responseData];
-
-      return moviesData;
+      return responseData.results; 
     } catch (error) {
       throw new Error(`Error fetching movies: ${error.message}`);
     }
@@ -70,10 +66,17 @@ function HomePage() {
         <button onClick={() => fetchMovies(searchTerm)}>Search</button>
       </div>
       <div>
-        {Array.isArray(movies) ? (
-          movies.map((movie) => (
-            <div key={movie.original_title}>
+        {Array.isArray(responseData) ? (
+          responseData.map((movie) => (
+            <div key={movie.id}>
               <h2>{movie.title}</h2>
+              <p>{movie.overview}</p>
+              <img
+                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                alt={`${movie.title} Poster`}
+              />
+              <p>Release Date: {movie.release_date}</p>
+              <p>ID: {movie.id}</p>
             </div>
           ))
         ) : (
