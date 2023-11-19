@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom'; 
+import './Auth.css';
 
 function Auth() {
   const [cookies, setCookie] = useCookies(['Username', 'AuthToken']);

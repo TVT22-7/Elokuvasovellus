@@ -2,15 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie'; 
 import { useQuery } from '@tanstack/react-query';
-import Menu from '../../components/Navigation/Navigation';
-import Review from '../../components/Review/Review'; 
-
+import ReviewComponent from '../../components/Review/Review'; // Renamed 'Review' component to 'ReviewComponent'
 
 function Review() {
   const [searchTerm, setSearchTerm] = useState('');
   const [movies, setMovies] = useState([]);
 
-  const { data: reviews, error, isLoadings} = useQuery({
+  const { data: reviews, error, isLoading} = useQuery({
     queryKey: ['movieReviews', searchTerm],
     queryFn: () => fetchMovieReviews(searchTerm),
   });
@@ -72,7 +70,7 @@ function Review() {
       ) : (
         <ul style={{ listStyleType: 'none' }}>
           {reviews?.map((review) => (
-            <Review key={review.review_id} review={review} />
+            <ReviewComponent key={review.review_id} review={review} />
           ))}
         </ul>
       )}
