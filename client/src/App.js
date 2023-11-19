@@ -4,6 +4,7 @@ import Home from './pages/Home/Home';
 import Settings from './pages/settings/Settings';
 import FriendGroups from './pages/friendGroups/FriendGroups';
 import Auth from './pages/Auth/Auth';
+import Review from './pages/Review/Review';
 import './App.css';
 
 
@@ -16,6 +17,7 @@ function App() {
                     <Route path="/home" element={<Home />} /> 
                     <Route path="/settings" element={<Settings />} />
                     <Route path="/friend-groups" element={<FriendGroups />} />
+                    <Route path="/review" element={<Review />} />
                 </Routes>
             </div>
         </Router>
