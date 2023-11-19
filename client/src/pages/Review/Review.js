@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie'; 
 import { useQuery } from '@tanstack/react-query';
-import ReviewComponent from '../../components/Review/Review'; // Renamed 'Review' component to 'ReviewComponent'
+import ReviewComponent from '../../components/Review/Review'; 
 
 function Review() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -37,6 +37,12 @@ function Review() {
       console.error('Failed to fetch movies:', error);
     }
   }
+
+    const handleSignOut = () => {
+    removeCookie('AuthToken', { path: '/' });
+    removeCookie('Username', { path: '/' }); 
+    navigate('/');
+  };
   useEffect(() => {
     fetchMovieReviews('');
   }, []);
