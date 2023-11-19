@@ -38,12 +38,11 @@ function Review() {
     }
   }
 
-  const handleSignOut = () => {
+    const handleSignOut = () => {
     removeCookie('AuthToken', { path: '/' });
     removeCookie('Username', { path: '/' }); 
     navigate('/');
   };
-
   useEffect(() => {
     fetchMovieReviews('');
   }, []);
