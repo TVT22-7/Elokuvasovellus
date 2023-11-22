@@ -7,7 +7,7 @@ const userRoutes = require('./routes/userRoutes');
 const reviewRoutes = require('./routes/reviewRoutes');
 const groupRoutes = require('./routes/groupRoutes');
 const movieRoutes = require('./routes/movieRoutes');
-const require = require('mongoose');
+const { get } = require('mongoose');
 
 const PORT = process.env.PORT || 3000;
 
