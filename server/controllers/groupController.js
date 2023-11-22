@@ -4,7 +4,7 @@ const Group = require('../models/Group');
 // Get all group members
 exports.getGroupMembers = async (req, res) => {
     try {
-        const groupMembers = await GroupMembers.findAll(); // Fix the variable name
+        const groupMembers = await GroupMembers.findAll(); 
         res.json(groupMembers);
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -14,7 +14,7 @@ exports.getGroupMembers = async (req, res) => {
 // Get a single group member by ID
 exports.getGroupMember = async (req, res) => {
     try {
-        const GroupMembers = await GroupMembers.findById(req.params.id); // Fix the variable name
+        const GroupMembers = await GroupMembers.findById(req.params.id); 
         if (groupMember) {
             res.json(groupMember);
         } else {
@@ -26,7 +26,7 @@ exports.getGroupMember = async (req, res) => {
 };
 
 // Update group member information
-exports.updateGroupMember = async (req, res) => { // Fix the function name
+exports.updateGroupMember = async (req, res) => { 
     try {
         const updatedGroupMember = await GroupMembers.update(req.params.id, req.body);
         res.json(updatedGroupMember);
@@ -38,7 +38,7 @@ exports.updateGroupMember = async (req, res) => { // Fix the function name
 // Delete a group member
 exports.deleteGroupMember = async (req, res) => {
     try {
-        await GroupMembers.delete(req.params.id); // Fix the function name
+        await GroupMembers.delete(req.params.id); 
         res.send({ message: 'Group member removed' });
     } catch (error) {
         res.status(500).send(error.message);
@@ -61,13 +61,15 @@ exports.addMemberToGroup = async (req, res) => {
             return res.status(409).json({ error: 'User is already a member of the group' });
         }
 
-        const newGroupMember = await GroupMembers.create({ group_id, user_id, status }); // Fix the parameter
+        const newGroupMember = await GroupMembers.create({ group_id, user_id, status }); 
 
         res.status(201).json(newGroupMember);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'An error occurred while adding a member to the group' });
     }
+
+    // Delete a group
 
     exports.deleteGroup = async (req, res) => {
         try {
@@ -77,6 +79,8 @@ exports.addMemberToGroup = async (req, res) => {
             res.status(500).send(error.message);
         }
     }
+
+    // Create a group
 
     exports.createGroup = async (req, res) => {
         const { name, description, user_id } = req.body;
