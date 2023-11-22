@@ -1,4 +1,6 @@
 const db = require('../db');
+const sequelize = require('sequelize');
+
 
 const GroupMembers = {
     findAll: async () => {

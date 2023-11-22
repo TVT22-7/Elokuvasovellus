@@ -1,6 +1,5 @@
 const GroupMembers = require('../models/GroupMembers');
 const Group = require('../models/Group');
-const User = require('../models/User');
 
 // Get all group members
 exports.getGroupMembers = async (req, res) => {
@@ -15,7 +14,7 @@ exports.getGroupMembers = async (req, res) => {
 // Get a single group member by ID
 exports.getGroupMember = async (req, res) => {
     try {
-        const groupMember = await GroupMembers.findById(req.params.id); // Fix the variable name
+        const GroupMembers = await GroupMembers.findById(req.params.id); // Fix the variable name
         if (groupMember) {
             res.json(groupMember);
         } else {
@@ -72,7 +71,7 @@ exports.addMemberToGroup = async (req, res) => {
 
     exports.deleteGroup = async (req, res) => {
         try {
-            await Group.delete(req.params.id); // Fix the function name
+            await Group.delete(req.params.id); 
             res.send({ message: 'Group removed' });
         } catch (error) {
             res.status(500).send(error.message);
@@ -93,7 +92,7 @@ exports.addMemberToGroup = async (req, res) => {
                 return res.status(409).json({ error: 'Group already exists' });
             }
 
-            const newGroup = await Group.create({ name, description, user_id }); // Fix the parameter
+            const newGroup = await Group.create({ name, description, user_id }); 
 
             res.status(201).json(newGroup);
         } catch (error) {
