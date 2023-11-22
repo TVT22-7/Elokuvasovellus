@@ -48,14 +48,14 @@ function HomePage() {
   }, []);
 
   return (
-    <div>
+    <div className="home-container">
       <Menu />
-      <h1>Elokuvasovellus home</h1>
-      <p>Search for movies and see popularMovies</p>
+      <h1 className="home-title">Elokuvasovellus home</h1>
+      <p className="home-description">Search for movies and see popularMovies</p>
       <button onClick={handleSignOut} className="sign-out-button">
         Sign Out
       </button>
-      <div>
+      <div className="search-container">
         <input
           type="text"
           className="movie-search"
@@ -63,29 +63,29 @@ function HomePage() {
           value={searchTerm}
           onChange={handleSearchInputChange}
         />
-        <button onClick={() => fetchMovies(searchTerm)}>Search</button>
+        <button onClick={() => fetchMovies(searchTerm)} className="search-button">Search</button>
       </div>
-      <div>
+      <div className="movies-container">
         {Array.isArray(responseData) ? (
           responseData.map((movie) => (
-            <div key={movie.id}>
-              <h2>{movie.title}</h2>
-              <p>{movie.overview}</p>
+            <div className='movie-container' key={movie.id}>
+              <h2 className="movie-title">{movie.title}</h2>
+              <p className="movie-overview">{movie.overview}</p>
               <img
                 src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                 alt={`${movie.title} Poster`}
               />
-              <p>Release Date: {movie.release_date}</p>
-              <p>ID: {movie.id}</p>
+              <p className="movie-release-date">Release Date: {movie.release_date}</p>
+              <p className="movie-id">ID: {movie.id}</p>
             </div>
           ))
         ) : (
-          <p>No movies available.</p>
+          <p className="no-movies">No movies available.</p>
         )}
       </div>
 
-      {isLoading ? <div>Loading...</div> : null}
-      {error && <div>Error: {error.message}</div>}
+      {isLoading ? <div className="loading">Loading...</div> : null}
+      {error && <div className="error">Error: {error.message}</div>}
     </div>
   );
 }
