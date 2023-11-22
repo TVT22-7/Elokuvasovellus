@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom'; 
+import './Auth.css';
 
 function Auth() {
   const [cookies, setCookie] = useCookies(['Username', 'AuthToken']);
@@ -31,7 +32,7 @@ function Auth() {
 
     try {
       const response = await fetch(
-        `http://localhost:3000/api/users/${endpoint}`,
+        `${process.env.REACT_APP_ADDRESS}/api/users/${endpoint}`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -94,7 +95,7 @@ function Auth() {
           {error && <p>{error}</p>} 
         </form>
         <div className="auth-options">
-          <button
+          <button className='auth-button'
             onClick={() => viewLogin(false)}
             style={{
               backgroundColor: !isLogIn
@@ -104,7 +105,7 @@ function Auth() {
           >
             Sign up
           </button>
-          <button
+          <button className='auth-button'
             onClick={() => viewLogin(true)}
             style={{
               backgroundColor: isLogIn

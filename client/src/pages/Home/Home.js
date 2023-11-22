@@ -1,92 +1,91 @@
-import React, { useState, useEffect } from 'react'; 
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useCookies } from 'react-cookie'; 
+import { useCookies } from 'react-cookie';
 import './Home.css';
 import { useQuery } from '@tanstack/react-query';
 import Menu from '../../components/Navigation/Navigation';
-import Review from '../../components/Review/Review'; 
+import Review from '../../components/Review/Review';
 
 function HomePage() {
   const [, , removeCookie] = useCookies(['AuthToken']);
   const navigate = useNavigate();
 
   const [searchTerm, setSearchTerm] = useState('');
-  const [movies, setMovies] = useState([]);
-
-  const { data: reviews, error, isLoading } = useQuery({
-    queryKey: ['movieReviews', searchTerm],
-    queryFn: () => fetchMovieReviews(searchTerm),
+  const { data: responseData, error, isLoading } = useQuery({
+    queryKey: ['popularMovies', searchTerm],
+    queryFn: () => fetchMovies(searchTerm),
   });
 
-  async function fetchMovieReviews(search) {
-    const response = await fetch(`http://localhost:3000/api/reviews/${search ? `?search=${search}` : ''}`);
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
+  async function fetchMovies(search) {
+    try {
+      const endpoint = search ? `/api/movies/popular/?search=${search}` : '/api/movies/popular/';
+      const response = await fetch(`${process.env.REACT_APP_ADDRESS}${endpoint}`);
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const responseData = await response.json();
+      return responseData.results; 
+    } catch (error) {
+      throw new Error(`Error fetching movies: ${error.message}`);
     }
-    return response.json();
   }
 
   function handleSearchInputChange(e) {
     setSearchTerm(e.target.value);
   }
 
-  async function handleSearchClick() {
-    try {
-      const response = await fetch(`http://localhost:3000/api/movies/?search=${searchTerm}`);
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const moviesData = await response.json();
-      setMovies(moviesData); 
-    } catch (error) {
-      console.error('Failed to fetch movies:', error);
-    }
-  }
-
+  // Authentication remove cookie
   const handleSignOut = () => {
     removeCookie('AuthToken', { path: '/' });
-    removeCookie('Username', { path: '/' }); 
+    removeCookie('Username', { path: '/' });
     navigate('/');
-  };
+  }
 
   useEffect(() => {
-    fetchMovieReviews('');
+    fetchMovies('');
   }, []);
 
   return (
-    <div>
+    <div className="home-container">
       <Menu />
-      <h1>Elokuvasovellus home</h1>
-      <p>Search for movies and see their reviews</p>
-      <button onClick={handleSignOut} className="sign-out-button">Sign Out</button>
-      <div>
+      <h1 className="home-title">Elokuvasovellus home</h1>
+      <p className="home-description">Search for movies and see popularMovies</p>
+      <button onClick={handleSignOut} className="sign-out-button">
+        Sign Out
+      </button>
+      <div className="search-container">
         <input
           type="text"
-          className='movie-search'
+          className="movie-search"
           placeholder="Search for movies"
           value={searchTerm}
           onChange={handleSearchInputChange}
         />
-        <button onClick={handleSearchClick}>Search</button>
+        <button onClick={() => fetchMovies(searchTerm)} className="search-button">Search</button>
       </div>
-      <div>
-        {movies.map(movie => (
-          <div key={movie.id}>
-            <h2>{movie.title}</h2>
-          </div>
-        ))}
+      <div className="movies-container">
+        {Array.isArray(responseData) ? (
+          responseData.map((movie) => (
+            <div className='movie-container' key={movie.id}>
+              <h2 className="movie-title">{movie.title}</h2>
+              <p className="movie-overview">{movie.overview}</p>
+              <img
+                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                alt={`${movie.title} Poster`}
+              />
+              <p className="movie-release-date">Release Date: {movie.release_date}</p>
+              <p className="movie-id">ID: {movie.id}</p>
+            </div>
+          ))
+        ) : (
+          <p className="no-movies">No movies available.</p>
+        )}
       </div>
-      {isLoading ? (
-        <div>Loading...</div>
-      ) : error ? (
-        <div>Error: {error.message}</div>
-      ) : (
-        <ul style={{ listStyleType: 'none' }}>
-          {reviews?.map((review) => (
-            <Review key={review.review_id} review={review} />
-          ))}
-        </ul>
-      )}
+
+      {isLoading ? <div className="loading">Loading...</div> : null}
+      {error && <div className="error">Error: {error.message}</div>}
     </div>
   );
 }

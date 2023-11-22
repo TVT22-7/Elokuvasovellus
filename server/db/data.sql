@@ -1,3 +1,4 @@
+-- Active: 1699434091546@@dpg-cl5kp3s72pts73eno220-a.frankfurt-postgres.render.com@5432@elokuvasovellus_0lmg
 CREATE DATABASE elokuvasovellus;
 
 -- User Table
