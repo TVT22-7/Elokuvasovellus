@@ -6,7 +6,8 @@ const cors = require('cors');
 const userRoutes = require('./routes/userRoutes');
 const reviewRoutes = require('./routes/reviewRoutes');
 const groupRoutes = require('./routes/groupRoutes');
-const { get } = require('mongoose');
+const movieRoutes = require('./routes/movieRoutes');
+const require = require('mongoose');
 
 const PORT = process.env.PORT || 3000;
 
@@ -29,3 +30,4 @@ app.listen(PORT, () => {
   }).on('error', (err) => {
     console.error('Server cannot start:', err);
   });
+  

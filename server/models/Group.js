@@ -1,8 +1,11 @@
-const sequelize = require('sequelize');
 const db = require('../db');
 
 const Group = {
 
+    findAll: async () => {
+        //finding all groups
+        return await db.any('SELECT * FROM groups');
+    },
     findById: async (id) => {
         //finding a group by id
         return await db.oneOrNone('SELECT * FROM groups WHERE group_id = $1', id);

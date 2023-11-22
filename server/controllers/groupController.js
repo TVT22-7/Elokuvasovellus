@@ -1,6 +1,34 @@
 const GroupMembers = require('../models/GroupMembers');
 const Group = require('../models/Group');
 
+
+// Get all groups
+exports.getGroups = async (req, res) => {
+    try {
+        const groups = await Group.findAll(); 
+        res.json(groups);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
+// Get a single group by ID
+exports.getGroup = async (req, res) => {
+    try {
+        const group = await Group.findByPk(req.params.id);
+        if (group) {
+            res.json(group);
+        }
+        else {
+            res.status(404).send('Group not found');
+        }
+    } catch (err) {
+            res.status(500).send(err.message);
+        }
+    };
+
+
+
 // Get all group members
 exports.getGroupMembers = async (req, res) => {
     try {
@@ -11,10 +39,12 @@ exports.getGroupMembers = async (req, res) => {
     }
 };
 
+
+
 // Get a single group member by ID
 exports.getGroupMember = async (req, res) => {
     try {
-        const GroupMembers = await GroupMembers.findById(req.params.id); 
+        const groupMember = await GroupMembers.findByPk(req.params.id); 
         if (groupMember) {
             res.json(groupMember);
         } else {
@@ -24,6 +54,8 @@ exports.getGroupMember = async (req, res) => {
         res.status(500).send(err.message);
     }
 };
+
+
 
 // Update group member information
 exports.updateGroupMember = async (req, res) => { 
@@ -35,6 +67,8 @@ exports.updateGroupMember = async (req, res) => {
     }
 };
 
+
+
 // Delete a group member
 exports.deleteGroupMember = async (req, res) => {
     try {
@@ -44,6 +78,8 @@ exports.deleteGroupMember = async (req, res) => {
         res.status(500).send(error.message);
     }
 };
+
+
 
 // Add a member to a group
 exports.addMemberToGroup = async (req, res) => {
@@ -68,6 +104,7 @@ exports.addMemberToGroup = async (req, res) => {
         console.error(error);
         res.status(500).json({ error: 'An error occurred while adding a member to the group' });
     }
+};
 
     // Delete a group
 
@@ -78,7 +115,7 @@ exports.addMemberToGroup = async (req, res) => {
         } catch (error) {
             res.status(500).send(error.message);
         }
-    }
+    };
 
     // Create a group
 
@@ -103,8 +140,4 @@ exports.addMemberToGroup = async (req, res) => {
             console.error(error);
             res.status(500).json({ error: 'An error occurred while creating the group' });
         }
-    };
 };
-
-
-// lisää loput funktiot tähän
