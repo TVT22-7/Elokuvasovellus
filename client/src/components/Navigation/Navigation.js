@@ -21,6 +21,7 @@ function Navigation() {
               <li><Link to="/">Home</Link></li>
               <li><Link to="/settings">Settings</Link></li>
               <li><Link to="/friend-groups">Friend Groups</Link></li>
+              <li><Link to="/">Sign Out</Link></li>
             </ul>
           </div>
         )}
@@ -30,3 +31,4 @@ function Navigation() {
 }
 
 export default Navigation;
+
