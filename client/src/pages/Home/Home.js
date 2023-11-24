@@ -5,6 +5,7 @@ import './Home.css';
 import { useQuery } from '@tanstack/react-query';
 import Menu from '../../components/Navigation/Navigation';
 
+
 function HomePage() {
   const [, , removeCookie] = useCookies(['AuthToken']);
   const navigate = useNavigate();
@@ -21,19 +22,28 @@ function HomePage() {
 
   async function fetchMovies(search) {
     try {
-      const endpoint = search ? `/api/movies/popular/?search=${search}` : '/api/movies/popular/';
-      const response = await fetch(`${process.env.REACT_APP_ADDRESS}${endpoint}`);
-
+      const apiKey = process.env.TMDB_API_KEY;
+      const endpoint = search
+        ? `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${search}`
+        : 'https://api.themoviedb.org/3/search/movie?api_key=${apiKey}';
+  
+      const response = await fetch(endpoint); 
+      console.log('Response:', response);
+  
       if (!response.ok) {
+        console.error('Network response was not ok:', response);
         throw new Error('Network response was not ok');
       }
-
+  
       const responseData = await response.json();
+      console.log('Movie Data:', responseData.results);
       return responseData.results;
     } catch (error) {
+      console.error('Error fetching movies:', error);
       throw new Error(`Error fetching movies: ${error.message}`);
     }
   }
+  
 
   function handleSearchInputChange(e) {
     setSearchTerm(e.target.value);
@@ -114,7 +124,6 @@ function HomePage() {
                 alt={`${movie.title} Poster`}
               />
               <p className="movie-release-date">Release Date: {movie.release_date}</p>
-              <p className="movie-id">ID: {movie.id}</p>
             </div>
           ))
         ) : (
