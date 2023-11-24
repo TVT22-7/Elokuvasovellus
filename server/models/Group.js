@@ -12,7 +12,7 @@ const Group = {
     },
     create: async (group_name, group_description, group_image) => {
         //creating a new group
-        return await db.one('INSERT INTO groups (group_name, group_description, group_image) VALUES ($1, $2, $3) RETURNING *', [group_name, group_description, group_image]);
+        return await db.one('INSERT INTO groups (group_id, group_name) VALUES ($1, $2, $3) RETURNING *', [group_name, group_description, group_image]);
     },
     update: async (id, groupData) => {
         //updating a group
