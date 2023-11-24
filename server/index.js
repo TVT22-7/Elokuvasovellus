@@ -17,7 +17,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use('/api/users', userRoutes);
 app.use('/api/reviews', reviewRoutes);
-app.use('/api/groups', groupRoutes);
+app.use('/api/', groupRoutes);
 app.use('/api/movies', movieRoutes);
 
 

@@ -15,7 +15,7 @@ exports.getGroups = async (req, res) => {
 // Get a single group by ID
 exports.getGroup = async (req, res) => {
     try {
-        const group = await Group.findByPk(req.params.id);
+        const group = await Group.findById(req.params.id);
         if (group) {
             res.json(group);
         }
@@ -44,7 +44,7 @@ exports.getGroupMembers = async (req, res) => {
 // Get a single group member by ID
 exports.getGroupMember = async (req, res) => {
     try {
-        const groupMember = await GroupMembers.findByPk(req.params.id); 
+        const groupMember = await GroupMembers.findById(req.params.id); 
         if (groupMember) {
             res.json(groupMember);
         } else {

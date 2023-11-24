@@ -3,7 +3,7 @@ const { getGroupMembers, getGroups, getGroup, getGroupMember, updateGroupMember,
 
 const router = express.Router();
 
-router.get('/', getGroups);
+router.get('/groups', getGroups);
 
 router.get('/groups/:groupId', getGroup);
 
