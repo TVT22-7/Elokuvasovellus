@@ -1,8 +1,8 @@
 const express = require('express');
-const {xmlScheduleController} = require('../controller/xmlScheduleController'); // Adjust the path based on your project structure
+const xmlNewsController = require('../controllers/xmlNewsController');
 const router = express.Router();
 
-// Route to get all movie schedules
-router.get('/movies/schedules', xmlScheduleController);
+// Route to get all movie news
+router.get('/movies/news', xmlNewsController);
 
 module.exports = router;
