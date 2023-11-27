@@ -4,20 +4,20 @@ import { useCookies } from 'react-cookie';
 import './Home.css';
 import { useQuery } from '@tanstack/react-query';
 import Menu from '../../components/Navigation/Navigation';
+import parser from 'fast-xml-parser';
 
 function HomePage() {
   const [, , removeCookie] = useCookies(['AuthToken']);
   const navigate = useNavigate();
+  const [loadingNews, setLoadingNews] = useState(false);
+  const [errorNews, setErrorNews] = useState(null);
+  const [newsList, setNewsList] = useState([]);
 
   const [searchTerm, setSearchTerm] = useState('');
   const { data: responseData, error, isLoading: loadingMovies } = useQuery({
     queryKey: ['popularMovies', searchTerm],
     queryFn: () => fetchMovies(searchTerm),
   });
-
-  const [scheduleList, setScheduleList] = useState([]);
-  const [loadingSchedules, setLoadingSchedules] = useState(false);
-  const [errorSchedules, setErrorSchedules] = useState(null);
 
   async function fetchMovies(search) {
     try {
@@ -39,33 +39,39 @@ function HomePage() {
     setSearchTerm(e.target.value);
   }
 
-  async function showSchedules() {
+  async function showNews() {
     try {
-      setLoadingSchedules(true);
-      const response = await fetch('/api/xml/movies/schedules');
-  
+      setLoadingNews(true);
+      const response = await fetch('https://www.finnkino.fi/xml/News/');
+
       if (!response.ok) {
         throw new Error(`Error: ${response.statusText}`);
       }
-  
-      // Check if the response is JSON
-      const contentType = response.headers.get('content-type');
-      if (contentType && contentType.includes('application/json')) {
-        const schedules = await response.json();
-        const scheduleList = schedules.map(schedule => (
-          <li key={schedule.id}>{schedule.title} - {schedule.start}</li>
+
+      // Attempt to parse the response as XML using fast-xml-parser
+      try {
+        const xmlData = await response.text();
+        const result = parser.parse(xmlData);
+        // Assuming the result is an object representing the XML structure
+        const newsList = result.articles.article.map(article => (
+          <li key={article.id}>
+            <h3>{article.title}</h3>
+            <p>{article.content}</p>
+            {/* Add more fields as needed */}
+          </li>
         ));
-        setScheduleList(scheduleList);
-      } else {
-        // Handle non-JSON response (e.g., display an error message)
-        console.error('Error: Response is not in JSON format');
+        setNewsList(newsList);
+      } catch (xmlError) {
+        // Handle the error when parsing XML
+        setErrorNews(new Error(`Error parsing XML: ${xmlError.message}`));
       }
     } catch (error) {
-      setErrorSchedules(error);
+      setErrorNews(error);
     } finally {
-      setLoadingSchedules(false);
+      setLoadingNews(false);
     }
   }
+
   // Authentication remove cookie
   const handleSignOut = () => {
     removeCookie('AuthToken', { path: '/' });
@@ -86,12 +92,9 @@ function HomePage() {
         Sign Out
       </button>
 
-      
-      <button onClick={showSchedules} className="show-schedules-button">
-        Show Movie Schedules
+      <button onClick={showNews} className="show-News-button">
+        Show Movie News
       </button>
-
-      
 
       <div className="search-container">
         <input
@@ -123,11 +126,10 @@ function HomePage() {
       </div>
 
       {loadingMovies && <div className="loading">Loading movies...</div>}
-      {loadingSchedules && <div className="loading">Loading schedules...</div>}
       {error && <div className="error">Error: {error.message}</div>}
-      {errorSchedules && <div className="error">Error: {errorSchedules.message}</div>}
+      {errorNews && <div className="error">Error: {errorNews.message}</div>}
 
-      <ul>{scheduleList}</ul>
+      <ul>{newsList}</ul>
     </div>
   );
 }
