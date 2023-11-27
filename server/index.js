@@ -8,7 +8,7 @@ const reviewRoutes = require('./routes/reviewRoutes');
 const groupRoutes = require('./routes/groupRoutes');
 const xmlRoutes = require('./routes/xmlRoutes'); // Updated import for xmlRoutes
 const movieRoutes = require('./routes/movieRoutes');
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 
 app.use(express.static('public'));
 app.use(express.json());
