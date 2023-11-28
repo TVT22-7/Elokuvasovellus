@@ -18,9 +18,8 @@ app.use('/api/users', userRoutes);
 app.use('/api/reviews', reviewRoutes);
 app.use('/api/', groupRoutes);
 app.use('/api/movies', movieRoutes);
-app.use('/api/', groupRoutes); // Updated use for groupRoutes
 app.use('/api/xml', xmlRoutes);
-app.use('/api/movies', movieRoutes); // Updated use for movieRoutes
+
 // Additional route for the home page
 
 
