@@ -4,7 +4,7 @@ import { useCookies } from 'react-cookie';
 import './Home.css';
 import { useQuery } from '@tanstack/react-query';
 import Menu from '../../components/Navigation/Navigation';
-//import parser from 'fast-xml-parser';
+
 
 function HomePage() {
   const [, , removeCookie] = useCookies(['AuthToken']);
