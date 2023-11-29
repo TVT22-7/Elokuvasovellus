@@ -14,7 +14,7 @@ function FriendGroups() {
 
     const fetchGroupsFromDatabase = async () => {
         try {
-            const response = await fetch('http://localhost:3001/friend-groups');
+            const response = await fetch('http://localhost:4000/friend-groups');
             const data = await response.json();
             setFriendGroups(data);
         } catch (error) {
@@ -30,7 +30,7 @@ function FriendGroups() {
         if (newGroupName.trim() !== '') {
             try {
                 // Lähetä uuden ryhmän tiedot tietokantaan
-                const response = await fetch('http://localhost:3001/friend-groups', {
+                const response = await fetch('http://localhost:4000/friend-groups', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
