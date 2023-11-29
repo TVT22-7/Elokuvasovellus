@@ -54,7 +54,7 @@
     margin-top: 15px;
   }
   
-  button {
+  .auth-button {
     flex: 1;
     padding: 10px;
     border: none;

@@ -95,7 +95,7 @@ function Auth() {
           {error && <p>{error}</p>} 
         </form>
         <div className="auth-options">
-          <button
+          <button className='auth-button'
             onClick={() => viewLogin(false)}
             style={{
               backgroundColor: !isLogIn
@@ -105,7 +105,7 @@ function Auth() {
           >
             Sign up
           </button>
-          <button
+          <button className='auth-button'
             onClick={() => viewLogin(true)}
             style={{
               backgroundColor: isLogIn
