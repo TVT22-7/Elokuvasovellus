@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import './FriendGroups.css';
 import Navigation from '../../components/Navigation/Navigation';
 
+
 function FriendGroups() {
     const [newGroupName, setNewGroupName] = useState('');
     const [friendGroups, setFriendGroups] = useState([]);
