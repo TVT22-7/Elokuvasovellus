@@ -123,7 +123,7 @@ exports.addMemberToGroup = async (req, res) => {
         const { name, description, user_id } = req.body;
 
         try {
-            const groupExists = await Group.findOne({
+            const groupExists = await Group.findById({
                 where: {
                     name,
                 },
