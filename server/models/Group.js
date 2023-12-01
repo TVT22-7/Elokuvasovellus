@@ -1,5 +1,4 @@
 const db = require('../db');
-
 const Group = {
 
     findAll: async () => {

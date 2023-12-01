@@ -22,6 +22,7 @@ function FriendGroups() {
             console.error('Error fetching groups from the database:', error);
         }
     };
+    const endpoint = 'create';
 
     const handleGroupNameChange = (e) => {
         setNewGroupName(e.target.value);
@@ -31,7 +32,9 @@ function FriendGroups() {
         if (newGroupName.trim() !== '') {
             try {
                 // Lähetä uuden ryhmän tiedot tietokantaan
-                const response = await fetch('http://localhost:4000/api/groups/create', {
+                const response = await fetch(
+                `${process.env.REACT_APP_ADDRESS}/api/groups/${endpoint}`,
+        {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
