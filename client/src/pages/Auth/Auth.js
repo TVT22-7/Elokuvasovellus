@@ -3,6 +3,7 @@ import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom'; 
 import './Auth.css';
 
+
 function Auth() {
   const [cookies, setCookie] = useCookies(['Username', 'AuthToken']);
   const [isLogIn, setIsLogin] = useState(false); 

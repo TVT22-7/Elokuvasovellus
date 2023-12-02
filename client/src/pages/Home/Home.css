@@ -39,9 +39,7 @@
   border-radius: 10%;
 }
 
-.movie-overview {
-  
-}
+
 
 .movie-container .movie-overview h3 {
   display: flex;
@@ -59,7 +57,7 @@
   justify-content: space-between;
 
 }
-.schedules-button {
+.news-button {
   margin-left: 10px;
   padding: 8px 12px;
   font-size: 16px;
@@ -72,7 +70,7 @@
   transition: all 0.3s ease;
 }
 
-.show-schedules-button:hover {
+.show-news-button:hover {
   background-color: #dfdcdc;
   border-radius: 5px;
   border: 1px solid;

@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import './FriendGroups.css';
 import Navigation from '../../components/Navigation/Navigation';
-
 
 function FriendGroups() {
     const [newGroupName, setNewGroupName] = useState('');
     const [friendGroups, setFriendGroups] = useState([]);
 
     useEffect(() => {
-
         fetchGroupsFromDatabase();
     }, []);
 
@@ -17,12 +14,12 @@ function FriendGroups() {
         try {
             const response = await fetch('http://localhost:4000/api/groups');
             const data = await response.json();
+            console.log('Fetched groups:', data);
             setFriendGroups(data);
         } catch (error) {
             console.error('Error fetching groups from the database:', error);
         }
     };
-    const endpoint = 'create';
 
     const handleGroupNameChange = (e) => {
         setNewGroupName(e.target.value);
@@ -31,16 +28,16 @@ function FriendGroups() {
     const handleCreateGroup = async () => {
         if (newGroupName.trim() !== '') {
             try {
-                // Lähetä uuden ryhmän tiedot tietokantaan
                 const response = await fetch(
-                `${process.env.REACT_APP_ADDRESS}/api/groups/${endpoint}`,
-        {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ name: newGroupName }),
-                });
+                    `${process.env.REACT_APP_ADDRESS}/api/groups/create`,
+                    {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ name: newGroupName }),
+                    }
+                );
 
                 if (response.ok) {
                     fetchGroupsFromDatabase();
@@ -59,9 +56,13 @@ function FriendGroups() {
             <Navigation />
             <h1>Friend Groups</h1>
             <ul className="friend-list">
-                {friendGroups.map((group) => (
-                    <li key={group.id}>{group.name}</li>
-                ))}
+            {friendGroups.length > 0 ? (
+    friendGroups.map((group) => (
+        <li key={group.group_id}>{group.name}</li>
+        ))  
+        ) : (
+    <li>Error fetching or no friend groups available</li>
+        )}
             </ul>
             <div className='create-group'>
                 <input
