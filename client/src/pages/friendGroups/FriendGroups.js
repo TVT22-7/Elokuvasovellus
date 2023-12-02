@@ -58,7 +58,7 @@ function FriendGroups() {
             <ul className="friend-list">
             {friendGroups.length > 0 ? (
     friendGroups.map((group) => (
-        <li key={group.group_id}>{group.name}</li>
+        <li key={group.group_id}>{group.group_name}</li>
         ))  
         ) : (
     <li>Error fetching or no friend groups available</li>
