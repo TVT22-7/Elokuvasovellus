@@ -5,6 +5,7 @@ import Navigation from '../../components/Navigation/Navigation';
 function FriendGroups() {
     const [newGroupName, setNewGroupName] = useState('');
     const [friendGroups, setFriendGroups] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         fetchGroupsFromDatabase();
@@ -16,8 +17,10 @@ function FriendGroups() {
             const data = await response.json();
             console.log('Fetched groups:', data);
             setFriendGroups(data);
+            setLoading(false);
         } catch (error) {
             console.error('Error fetching groups from the database:', error);
+            setLoading(false);
         }
     };
 
@@ -51,18 +54,16 @@ function FriendGroups() {
         }
     };
 
+    console.log('Friend Groups:', friendGroups);
+
     return (
         <div className="friend-container">
             <Navigation />
             <h1>Friend Groups</h1>
             <ul className="friend-list">
-            {friendGroups.length > 0 ? (
-    friendGroups.map((group) => (
-        <li key={group.group_id}>{group.name}</li>
-        ))  
-        ) : (
-    <li>Error fetching or no friend groups available</li>
-        )}
+                {friendGroups.map((group) => (
+                    <li key={group.group_id}>{group.group_name}</li>
+                ))}
             </ul>
             <div className='create-group'>
                 <input
