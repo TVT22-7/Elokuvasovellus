@@ -22,3 +22,9 @@ router.post('/groups/create', createGroup);
 router.delete('/groups/:groupId', deleteGroup);
 
 module.exports = router;
+
+
+router.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({ error: 'Internal Server Error routessa' });
+});
