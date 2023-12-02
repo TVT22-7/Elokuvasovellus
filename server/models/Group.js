@@ -11,7 +11,7 @@ const Group = {
     },
     create: async (group_id, group_name) => {
         //creating a new group
-        return await db.one('INSERT INTO groups (group_id, group_name) VALUES ($1, $2) RETURNING *', [group_id, group_name]);
+        return await db.one('INSERT INTO groups (group_id, group_name, descrption) VALUES ($1, $2, $3) RETURNING *', [group_id, group_name, description]);
     },
     update: async (id, groupData) => {
         //updating a group
