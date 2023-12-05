@@ -12,7 +12,6 @@ function FriendGroups() {
 
     const fetchGroupsFromDatabase = async () => {
         try {
-
             const response = await fetch('http://localhost:4000/api/groups');
             const data = await response.json();
             console.log('Fetched groups:', data);
@@ -29,7 +28,6 @@ function FriendGroups() {
     const handleCreateGroup = async () => {
         if (newGroupName.trim() !== '') {
             try {
-
                 const response = await fetch(
                     `${process.env.REACT_APP_ADDRESS}/api/groups/create`,
                     {
@@ -39,10 +37,8 @@ function FriendGroups() {
                         },
                         body: JSON.stringify({ name: newGroupName }),
                     }
-                  });
-            
-
-
+                ); // <-- Removed the extra `}` here
+    
                 if (response.ok) {
                     fetchGroupsFromDatabase();
                     setNewGroupName('');
@@ -60,13 +56,13 @@ function FriendGroups() {
             <Navigation />
             <h1>Friend Groups</h1>
             <ul className="friend-list">
-            {friendGroups.length > 0 ? (
-    friendGroups.map((group) => (
-        <li key={group.group_id}>{group.group_name}</li>
-        ))  
-        ) : (
-    <li>Error fetching or no friend groups available</li>
-        )}
+                {friendGroups.length > 0 ? (
+                    friendGroups.map((group) => (
+                        <li key={group.group_id}>{group.group_name}</li>
+                    ))
+                ) : (
+                    <li>Error fetching or no friend groups available</li>
+                )}
             </ul>
             <div className='create-group'>
                 <input
