@@ -12,6 +12,7 @@ function FriendGroups() {
 
     const fetchGroupsFromDatabase = async () => {
         try {
+
             const response = await fetch('http://localhost:4000/api/groups');
             const data = await response.json();
             console.log('Fetched groups:', data);
@@ -28,6 +29,7 @@ function FriendGroups() {
     const handleCreateGroup = async () => {
         if (newGroupName.trim() !== '') {
             try {
+
                 const response = await fetch(
                     `${process.env.REACT_APP_ADDRESS}/api/groups/create`,
                     {
@@ -37,7 +39,9 @@ function FriendGroups() {
                         },
                         body: JSON.stringify({ name: newGroupName }),
                     }
-                );
+                  });
+            
+
 
                 if (response.ok) {
                     fetchGroupsFromDatabase();
