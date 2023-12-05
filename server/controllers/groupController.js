@@ -117,27 +117,33 @@ exports.addMemberToGroup = async (req, res) => {
         }
     };
 
-    // Create a group
+   // Create a group
 
-    exports.createGroup = async (req, res) => {
-        const { name, description, user_id } = req.body;
+exports.createGroup = async (req, res) => {
+    const { group_name, description } = req.body;
 
-        try {
-            const groupExists = await Group.findOne({
-                where: {
-                    name,
-                },
-            });
+    try {
+        const groupExists = await Group.findOne({
+            where: {
+                group_name
+            },
+        });
 
-            if (groupExists) {
-                return res.status(409).json({ error: 'Group already exists' });
-            }
-
-            const newGroup = await Group.create({ name, description, user_id }); 
-
-            res.status(201).json(newGroup);
-        } catch (error) {
-            console.error(error);
-            res.status(500).json({ error: 'An error occurred while creating the group' });
+        if (groupExists) {
+            return res.status(409).json({ error: 'Group already exists' });
         }
+
+        const newGroup = await Group.create({
+            group_name,
+            description
+        });
+
+        res.status(201).json(newGroup);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'An error occurred while creating the group' });
+    }
 };
+
+
+

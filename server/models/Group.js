@@ -10,9 +10,9 @@ const Group = {
         //finding a group by id
         return await db.oneOrNone('SELECT * FROM groups WHERE group_id = $1', id);
     },
-    create: async (group_name, group_description, group_image) => {
+    create: async (group_name, description) => {
         //creating a new group
-        return await db.one('INSERT INTO groups (group_id, group_name) VALUES ($1, $2, $3) RETURNING *', [group_name, group_description, group_image]);
+        return await db.one('INSERT INTO groups (group_id, name, description) VALUES ($1, $2, $3) RETURNING *', [group_name, description]);
     },
     update: async (id, groupData) => {
         //updating a group

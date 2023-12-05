@@ -14,7 +14,11 @@ function FriendGroups() {
 
     const fetchGroupsFromDatabase = async () => {
         try {
+<<<<<<< Updated upstream
             const response = await fetch('http://localhost:3001/friend-groups');
+=======
+            const response = await fetch('http://localhost:4000/api/groups');
+>>>>>>> Stashed changes
             const data = await response.json();
             setFriendGroups(data);
         } catch (error) {
@@ -30,7 +34,13 @@ function FriendGroups() {
         if (newGroupName.trim() !== '') {
             try {
                 // Lähetä uuden ryhmän tiedot tietokantaan
+<<<<<<< Updated upstream
                 const response = await fetch('http://localhost:3001/friend-groups', {
+=======
+                const response = await fetch(
+                `${process.env.REACT_APP_ADDRESS}/api/groups/create`, 
+                {
+>>>>>>> Stashed changes
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
