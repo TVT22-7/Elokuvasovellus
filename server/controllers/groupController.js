@@ -1,11 +1,11 @@
 const GroupMembers = require('../models/GroupMembers');
 const Group = require('../models/Group');
-
+import Group from '../models/Group';
 
 // Get all groups
 exports.getGroups = async (req, res) => {
     try {
-        const groups = await Group.findAll(); 
+        const groups = await Group.findAll();
         res.json(groups);
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -18,33 +18,28 @@ exports.getGroup = async (req, res) => {
         const group = await Group.findById(req.params.id);
         if (group) {
             res.json(group);
-        }
-        else {
+        } else {
             res.status(404).send('Group not found');
         }
     } catch (err) {
-            res.status(500).send(err.message);
-        }
-    };
-
-
+        res.status(500).send(err.message);
+    }
+};
 
 // Get all group members
 exports.getGroupMembers = async (req, res) => {
     try {
-        const groupMembers = await GroupMembers.findAll(); 
+        const groupMembers = await GroupMembers.findAll();
         res.json(groupMembers);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
 };
 
-
-
 // Get a single group member by ID
 exports.getGroupMember = async (req, res) => {
     try {
-        const groupMember = await GroupMembers.findById(req.params.id); 
+        const groupMember = await GroupMembers.findById(req.params.id);
         if (groupMember) {
             res.json(groupMember);
         } else {
@@ -55,10 +50,8 @@ exports.getGroupMember = async (req, res) => {
     }
 };
 
-
-
 // Update group member information
-exports.updateGroupMember = async (req, res) => { 
+exports.updateGroupMember = async (req, res) => {
     try {
         const updatedGroupMember = await GroupMembers.update(req.params.id, req.body);
         res.json(updatedGroupMember);
@@ -67,19 +60,15 @@ exports.updateGroupMember = async (req, res) => {
     }
 };
 
-
-
 // Delete a group member
 exports.deleteGroupMember = async (req, res) => {
     try {
-        await GroupMembers.delete(req.params.id); 
+        await GroupMembers.delete(req.params.id);
         res.send({ message: 'Group member removed' });
     } catch (error) {
         res.status(500).send(error.message);
     }
 };
-
-
 
 // Add a member to a group
 exports.addMemberToGroup = async (req, res) => {
@@ -97,7 +86,7 @@ exports.addMemberToGroup = async (req, res) => {
             return res.status(409).json({ error: 'User is already a member of the group' });
         }
 
-        const newGroupMember = await GroupMembers.create({ group_id, user_id, status }); 
+        const newGroupMember = await GroupMembers.create({ group_id, user_id, status });
 
         res.status(201).json(newGroupMember);
     } catch (error) {
@@ -106,23 +95,19 @@ exports.addMemberToGroup = async (req, res) => {
     }
 };
 
-    // Delete a group
-
-    exports.deleteGroup = async (req, res) => {
-        try {
-            await Group.delete(req.params.id); 
-            res.send({ message: 'Group removed' });
-        } catch (error) {
-            res.status(500).send(error.message);
-        }
-    };
-
-   
-
+// Delete a group
+exports.deleteGroup = async (req, res) => {
+    try {
+        await Group.delete(req.params.id);
+        res.send({ message: 'Group removed' });
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+};
 
 // Create a group
 exports.createGroup = async (req, res) => {
-    const { group_id, group_name, description } = req.body;
+    const { group_name } = req.body;
 
     try {
         const groupExists = await Group.findOne({
@@ -135,7 +120,7 @@ exports.createGroup = async (req, res) => {
             return res.status(409).json({ error: 'Group already exists' });
         }
 
-        const newGroup = await Group.create({ group_name, group_id, description });
+        const newGroup = await Group.create({ group_name });
 
         res.status(201).json(newGroup);
     } catch (error) {

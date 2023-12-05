@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './FriendGroups.css';
 import Navigation from '../../components/Navigation/Navigation';
 
+
 function FriendGroups() {
     const [newGroupName, setNewGroupName] = useState('');
     const [friendGroups, setFriendGroups] = useState([]);
@@ -14,7 +15,7 @@ function FriendGroups() {
         try {
             const response = await fetch('http://localhost:4000/api/groups');
             const data = await response.json();
-            console.log('Fetched groups:', data);
+            
             setFriendGroups(data);
         } catch (error) {
             console.error('Error fetching groups from the database:', error);
@@ -25,7 +26,7 @@ function FriendGroups() {
         setNewGroupName(e.target.value);
     };
 
-    const handleCreateGroup = async () => {
+    const createGroup = async () => {
         if (newGroupName.trim() !== '') {
             try {
                 const response = await fetch(
@@ -71,7 +72,7 @@ function FriendGroups() {
                     value={newGroupName}
                     onChange={handleGroupNameChange}
                 />
-                <button onClick={handleCreateGroup}>Create Group</button>
+                <button onClick={createGroup}>Create Group</button>
             </div>
         </div>
     );

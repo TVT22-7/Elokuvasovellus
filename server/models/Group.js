@@ -9,13 +9,14 @@ const Group = {
         //finding a group by id
         return await db.oneOrNone('SELECT * FROM groups WHERE group_id = $1', id);
     },
-    create: async (group_id, group_name, description) => {
+    create: async (groupData) => {
+        const groupName = groupData.group_name || '';
         //creating a new group
-        return await db.one('INSERT INTO groups (group_id, group_name, description) VALUES ($1, $2, $3) RETURNING *', [group_id, group_name, description]);
+        return await db.one('INSERT INTO groups (group_id, group_name, description) VALUES ($1, $2) RETURNING *', [groupData.group_name, groupData.group_id, groupData.description]);
     },
-    update: async (id, groupData) => {
+    update: async (groupData) => {
         //updating a group
-        return await db.oneOrNone('UPDATE groups SET group_name = $1, group_description = $2, group_image = $3 WHERE group_id = $4 RETURNING *', [groupData.group_name, groupData.group_description, groupData.group_image, id]);
+        return await db.oneOrNone('UPDATE groups SET group_name = $1, description = $2 WHERE group_id = $3 RETURNING *', [groupData.group_name, groupData.description, groupData.group_id]);
     },
     delete: async (id) => {
         //deleting a group
