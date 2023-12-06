@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './FriendGroups.css';
+import Navigation from '../../components/Navigation/Navigation';w
 
 
 function FriendGroups() {

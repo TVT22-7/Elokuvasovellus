@@ -1,6 +1,6 @@
 const GroupMembers = require('../models/GroupMembers');
 const Group = require('../models/Group');
-import Group from '../models/Group';
+
 
 // Get all groups
 exports.getGroups = async (req, res) => {
@@ -110,7 +110,8 @@ exports.createGroup = async (req, res) => {
     const { group_name } = req.body;
 
     try {
-        const groupExists = await Group.findOne({
+
+       /* const groupExists = await Group.findOne({
             where: {
                 group_name,
             },
@@ -118,7 +119,7 @@ exports.createGroup = async (req, res) => {
 
         if (groupExists) {
             return res.status(409).json({ error: 'Group already exists' });
-        }
+        }*/
 
         const newGroup = await Group.create({ group_name });
 
