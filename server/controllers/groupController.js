@@ -107,10 +107,16 @@ exports.deleteGroup = async (req, res) => {
 
 // Create a group
 exports.createGroup = async (req, res) => {
+<<<<<<< Updated upstream
     const { group_name } = req.body;
 
     try {
 
+=======
+    const { group_name, description } = req.body;
+
+    try {
+>>>>>>> Stashed changes
        /* const groupExists = await Group.findOne({
             where: {
                 group_name,
@@ -119,9 +125,15 @@ exports.createGroup = async (req, res) => {
 
         if (groupExists) {
             return res.status(409).json({ error: 'Group already exists' });
+<<<<<<< Updated upstream
         }*/
 
         const newGroup = await Group.create({ group_name });
+=======
+        } */
+
+        const newGroup = await Group.create(group_name, description);
+>>>>>>> Stashed changes
 
         res.status(201).json(newGroup);
     } catch (error) {
