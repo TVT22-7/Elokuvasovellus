@@ -1,7 +1,8 @@
 const db = require('../db');
 const Group = {
+
     findAll: async () => {
-         //finding all groups
+        //finding all groups
         return await db.any('SELECT * FROM groups');
     },
     findById: async (id) => {
@@ -12,14 +13,12 @@ const Group = {
         //creating a new group
         return await db.one('INSERT INTO groups (group_name, description) VALUES ($1, $2) RETURNING *', [group_name, description]);
     },
-    update: async (groupData) => {
-         //updating a group
-        return await db.oneOrNone('UPDATE groups SET group_name = $1, description = $2 WHERE group_id = $3 RETURNING *', [groupData.group_name, groupData.description, groupData.group_id]);
+    update: async (id, groupData) => {
+        //updating a group
+        return await db.oneOrNone('UPDATE groups SET group_name = $1, group_description = $2, group_image = $3 WHERE group_id = $4 RETURNING *', [groupData.group_name, groupData.group_description, groupData.group_image, id]);
     },
     delete: async (id) => {
-
-        // deleting a group
-
+        //deleting a group
         return await db.oneOrNone('DELETE FROM groups WHERE group_id = $1', [id]);
     }
 };
