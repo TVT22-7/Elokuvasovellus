@@ -11,15 +11,14 @@
     max-width: 400px;
     max-height: 300px; 
     border-radius: 20px;
+
     list-style: none;
+    padding: 10px;
 }
     
 .friend-container {
     display: flex;
     flex-direction: column;
-    justify-content: right;
-    align-items: right;
-    background-color: white;
     padding: 10px;
     border-radius: 10px;
 }
@@ -33,4 +32,18 @@
 .home-btn{
     display: flex;
     justify-content: right;
+}
+.modal{
+    display: flex;
+    flex-direction: column;
+    justify-content: right;
+    align-items: center;
+    background-color: grey;
+    border-radius: 10px;
+    width: 300px;
+    height: 300px;
+    margin: 0 auto;
+    padding: 10px;
+    margin-left: 100px;
+    margin-top: -470px;
 }

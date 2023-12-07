@@ -17,7 +17,9 @@ const Group = {
         return await db.oneOrNone('UPDATE groups SET group_name = $1, description = $2 WHERE group_id = $3 RETURNING *', [groupData.group_name, groupData.description, groupData.group_id]);
     },
     delete: async (id) => {
+
         // deleting a group
+
         return await db.oneOrNone('DELETE FROM groups WHERE group_id = $1', [id]);
     }
 };
