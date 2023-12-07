@@ -8,24 +8,19 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding-right: 40px;
-    padding-top: 20px;
-    padding-bottom: 20px;
     gap: 20px;
     margin: 50px auto;
-    background-color: beige;
+    background-color: grey;
     max-width: 400px;
-    max-height: 300px; 
-    border-radius: 20px;
+    max-height: 1000px;
+    border-radius: 10px;
     list-style: none;
+    padding: 10px;
 }
     
 .friend-container {
     display: flex;
     flex-direction: column;
-    justify-content: right;
-    align-items: right;
-    background-color: white;
     padding: 10px;
     border-radius: 10px;
 }
@@ -39,4 +34,18 @@
 .home-btn{
     display: flex;
     justify-content: right;
+}
+.modal{
+    display: flex;
+    flex-direction: column;
+    justify-content: right;
+    align-items: center;
+    background-color: grey;
+    border-radius: 10px;
+    width: 300px;
+    height: 300px;
+    margin: 0 auto;
+    padding: 10px;
+    margin-left: 100px;
+    margin-top: -470px;
 }

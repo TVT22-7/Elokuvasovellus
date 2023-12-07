@@ -9,6 +9,7 @@ import Menu from '../../components/Navigation/Navigation';
 function HomePage() {
   const [, , removeCookie] = useCookies(['AuthToken']);
   const navigate = useNavigate();
+  
   const [loadingNews, setLoadingNews] = useState(false);
   const [errorNews, setErrorNews] = useState(null);
   const [newsList, setNewsList] = useState([]);
@@ -21,16 +22,23 @@ function HomePage() {
 
   async function fetchMovies(search) {
     try {
-      const endpoint = search ? `/api/movies/popular/?search=${search}` : '/api/movies/popular/';
-      const response = await fetch(`${process.env.REACT_APP_ADDRESS}${endpoint}`);
-
+      const apiKey = "76ab94bfa95ebbf5192e4f452207a827";
+      const endpoint = search
+        ? `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${search}`
+        : `https://api.themoviedb.org/3/movie/popular?language=en-US&page=1&api_key=${apiKey}`;
+  
+      const response = await fetch(endpoint); 
+  
       if (!response.ok) {
+        console.error('Network response was not ok:', response);
         throw new Error('Network response was not ok');
       }
-
+  
       const responseData = await response.json();
+      console.log('Movie Data:', responseData.results);
       return responseData.results;
     } catch (error) {
+      console.error('Error fetching movies:', error);
       throw new Error(`Error fetching movies: ${error.message}`);
     }
   }
