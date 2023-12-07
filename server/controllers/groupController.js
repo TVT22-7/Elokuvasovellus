@@ -15,7 +15,7 @@ exports.getGroups = async (req, res) => {
 // Get a single group by ID
 exports.getGroup = async (req, res) => {
     try {
-        const group = await Group.findById(req.params.id);
+        const group = await Group.findById(req.params.groupId);
         if (group) {
             res.json(group);
         } else {
@@ -63,7 +63,7 @@ exports.updateGroupMember = async (req, res) => {
 // Delete a group member
 exports.deleteGroupMember = async (req, res) => {
     try {
-        await GroupMembers.delete(req.params.id);
+        await GroupMembers.delete(req.params.groupId);
         res.send({ message: 'Group member removed' });
     } catch (error) {
         res.status(500).send(error.message);
@@ -98,9 +98,10 @@ exports.addMemberToGroup = async (req, res) => {
 // Delete a group
 exports.deleteGroup = async (req, res) => {
     try {
-        await Group.delete(req.params.id);
+        const groupId =req.params.groupId;
         res.send({ message: 'Group removed' });
     } catch (error) {
+        await Group.delete(groupId);
         res.status(500).send(error.message);
     }
 };

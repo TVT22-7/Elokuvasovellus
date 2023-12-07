@@ -3,6 +3,14 @@
   text-align: center;
   margin-top: 50px;
 }
+#light {
+  background-color: #fff;
+  
+}
+#dark {
+  background-color: rgb(104, 20, 183);
+  
+}
 
 button {
   margin: 10px;
