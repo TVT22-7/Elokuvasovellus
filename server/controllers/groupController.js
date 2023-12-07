@@ -15,17 +15,18 @@ exports.getGroups = async (req, res) => {
 // Get a single group by ID
 exports.getGroup = async (req, res) => {
     try {
-        const group = await Group.findById(req.params.id);
+        const group = await Group.findById(req.params.groupId);
+
         if (group) {
             res.json(group);
         } else {
             res.status(404).send('Group not found');
         }
     } catch (err) {
-        res.status(500).send(err.message);
+        console.error(err);
+        res.status(500).send('Internal Server Error');
     }
 };
-
 // Get all group members
 exports.getGroupMembers = async (req, res) => {
     try {
@@ -95,16 +96,29 @@ exports.addMemberToGroup = async (req, res) => {
     }
 };
 
+
+    // Delete a group
+   /* exports.deleteGroup = async (req, res) => {
+        try {
+            await Group.delete(req.params.id); // pass the id directly
+            res.send({ message: 'Group removed' });
+        } catch (error) {
+            res.status(500).send(error.message);
+        }
+};*/
+
 // Delete a group
 exports.deleteGroup = async (req, res) => {
     try {
-        await Group.delete(req.params.id);
+        const groupId = req.params.groupId;
+        console.log('Deleting group with ID:', groupId);
+        await Group.delete(groupId);
         res.send({ message: 'Group removed' });
     } catch (error) {
+        console.error('Error deleting group:', error);
         res.status(500).send(error.message);
     }
 };
-
 // Create a group
 exports.createGroup = async (req, res) => {
     const { group_name, description } = req.body;
