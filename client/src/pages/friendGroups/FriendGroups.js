@@ -4,6 +4,7 @@ import Navigation from '../../components/Navigation/Navigation';
 
 function FriendGroups() {
     const [newGroupName, setNewGroupName] = useState('');
+    const [newGroupDescription, setNewGroupDescription] = useState('');
     const [friendGroups, setFriendGroups] = useState([]);
 
     useEffect(() => {
@@ -25,6 +26,10 @@ function FriendGroups() {
         setNewGroupName(e.target.value);
     };
 
+    const handleGroupDescriptionChange = (e) => {
+        setNewGroupDescription(e.target.value);
+    };
+
     const handleCreateGroup = async () => {
         if (newGroupName.trim() !== '') {
             try {
@@ -42,6 +47,7 @@ function FriendGroups() {
                 if (response.ok) {
                     fetchGroupsFromDatabase();
                     setNewGroupName('');
+                    setNewGroupDescription('');
                 } else {
                     console.error('Error creating group:', response.statusText);
                 }
@@ -61,15 +67,21 @@ function FriendGroups() {
                         <li key={group.group_id}>{group.group_name}</li>
                     ))
                 ) : (
-                    <li>Error fetching or no friend groups available</li>
+                    <p>No groups found</p>
                 )}
             </ul>
-            <div className='create-group'>
+            <div className="create-group">
                 <input
                     type="text"
                     placeholder="Enter group name"
                     value={newGroupName}
                     onChange={handleGroupNameChange}
+                />
+                <input
+                    type="text"
+                    placeholder="Enter group description"
+                    value={newGroupDescription}
+                    onChange={handleGroupDescriptionChange}
                 />
                 <button onClick={handleCreateGroup}>Create Group</button>
             </div>

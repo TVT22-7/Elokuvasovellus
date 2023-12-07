@@ -126,16 +126,18 @@ exports.createGroup = async (req, res) => {
 
     try {
         const groupExists = await Group.findOne({
-            where: {
-                group_name,
-            },
-        });
+           where: {
+               group_name,
+      });
 
         if (groupExists) {
-            return res.status(409).json({ error: 'Group already exists' });
+          return res.status(409).json({ error: 'Group already exists' });
         }
 
-        const newGroup = await Group.create({ group_name, group_id, description });
+        const newGroup = await Group.create({
+            group_name,
+            description
+        });
 
         res.status(201).json(newGroup);
     } catch (error) {

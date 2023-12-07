@@ -14,9 +14,6 @@
 .friend-container {
     display: flex;
     flex-direction: column;
-    justify-content: right;
-    align-items: right;
-    background-color: white;
     padding: 10px;
     border-radius: 10px;
 }
