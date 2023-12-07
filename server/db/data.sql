@@ -17,7 +17,7 @@ CREATE TABLE
     groups (
         group_id SERIAL PRIMARY KEY,
         group_name VARCHAR(255) UNIQUE NOT NULL,
-        description VARCHAR(255) TEXT
+        description TEXT
     );
 
 -- Group Members Table
