@@ -9,6 +9,10 @@ import Menu from '../../components/Navigation/Navigation';
 function HomePage() {
   const [, , removeCookie] = useCookies(['AuthToken']);
   const navigate = useNavigate();
+  
+  const [loadingNews, setLoadingNews] = useState(false);
+  const [errorNews, setErrorNews] = useState(null);
+  const [newsList, setNewsList] = useState([]);
 
   const [searchTerm, setSearchTerm] = useState('');
   const { data: responseData, error, isLoading: loadingMovies } = useQuery({
@@ -16,12 +20,9 @@ function HomePage() {
     queryFn: () => fetchMovies(searchTerm),
   });
 
-  const [scheduleList, setScheduleList] = useState([]);
-  const [loadingSchedules, setLoadingSchedules] = useState(false);
-  const [errorSchedules, setErrorSchedules] = useState(null);
   async function fetchMovies(search) {
     try {
-      const apiKey = "APIKEY";
+      const apiKey = "76ab94bfa95ebbf5192e4f452207a827";
       const endpoint = search
         ? `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${search}`
         : `https://api.themoviedb.org/3/movie/popular?language=en-US&page=1&api_key=${apiKey}`;
@@ -41,37 +42,49 @@ function HomePage() {
       throw new Error(`Error fetching movies: ${error.message}`);
     }
   }
-  
 
   function handleSearchInputChange(e) {
     setSearchTerm(e.target.value);
   }
 
-  async function showSchedules() {
+  async function showNews() {
     try {
-      setLoadingSchedules(true);
-      const response = await fetch('/api/xml/movies/schedules');
+      setLoadingNews(true);
+      const response = await fetch('https://www.finnkino.fi/xml/News/');
   
       if (!response.ok) {
         throw new Error(`Error: ${response.statusText}`);
       }
-
-      const contentType = response.headers.get('content-type');
-      if (contentType && contentType.includes('application/json')) {
-        const schedules = await response.json();
-        const scheduleList = schedules.map(schedule => (
-          <li key={schedule.id}>{schedule.title} - {schedule.start}</li>
-        ));
-        setScheduleList(scheduleList);
-      } else {
-        console.error('Error: Response is not in JSON format');
+  
+      // Convert XML to text
+      const xmlText = await response.text();
+      console.log(xmlText); // Log XML to console
+  
+      // Parse XML using DOMParser
+      const parser = new DOMParser();
+      const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
+  
+      const articles = xmlDoc.getElementsByTagName('article');
+      const newsList = [];
+  
+      for (let i = 0; i < articles.length; i++) {
+        const article = articles[i];
+        const title = article.getElementsByTagName('title')[0].textContent;
+        const content = article.getElementsByTagName('content')[0].textContent;
+  
+        newsList.push({ id: i, title, content });
       }
+  
+      setNewsList(newsList);
+      console.log(newsList); // Log newsList to console
+      setErrorNews(null);
     } catch (error) {
-      setErrorSchedules(error);
+      setErrorNews(error);  
     } finally {
-      setLoadingSchedules(false);
+      setLoadingNews(false);
     }
   }
+  
   // Authentication remove cookie
   const handleSignOut = () => {
     removeCookie('AuthToken', { path: '/' });
@@ -92,12 +105,9 @@ function HomePage() {
         Sign Out
       </button>
 
-      
-      <button onClick={showSchedules} className="show-schedules-button">
-        Show Movie Schedules
+      <button onClick={showNews} className="show-News-button">
+        Show Movie News
       </button>
-
-      
 
       <div className="search-container">
         <input
@@ -120,6 +130,7 @@ function HomePage() {
                 alt={`${movie.title} Poster`}
               />
               <p className="movie-release-date">Release Date: {movie.release_date}</p>
+              <p className="movie-id">ID: {movie.id}</p>
             </div>
           ))
         ) : (
@@ -128,11 +139,20 @@ function HomePage() {
       </div>
 
       {loadingMovies && <div className="loading">Loading movies...</div>}
-      {loadingSchedules && <div className="loading">Loading schedules...</div>}
       {error && <div className="error">Error: {error.message}</div>}
-      {errorSchedules && <div className="error">Error: {errorSchedules.message}</div>}
+      {errorNews && <div className="error">Error: {errorNews.message}</div>}
 
-      <ul>{scheduleList}</ul>
+
+      {Array.isArray(newsList) && (
+  <ul>
+    {newsList.map((article) => (
+      <li key={article.id}>
+        <h3>{article.title}</h3>
+        <p>{article.content}</p>
+      </li>
+    ))}
+  </ul>
+)}
     </div>
   );
 }
