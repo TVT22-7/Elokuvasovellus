@@ -1,4 +1,4 @@
-.group-list {
+.friend-list {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -6,9 +6,10 @@
     margin: 50px auto;
     background-color: grey;
     max-width: 400px;
-    max-height: 300px; 
+    max-height: 1000px;
     border-radius: 10px;
     list-style: none;
+    padding: 10px;
 }
     
 .friend-container {
@@ -27,4 +28,18 @@
 .home-btn{
     display: flex;
     justify-content: right;
+}
+.modal{
+    display: flex;
+    flex-direction: column;
+    justify-content: right;
+    align-items: center;
+    background-color: grey;
+    border-radius: 10px;
+    width: 300px;
+    height: 300px;
+    margin: 0 auto;
+    padding: 10px;
+    margin-left: 100px;
+    margin-top: -470px;
 }

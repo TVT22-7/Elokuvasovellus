@@ -122,10 +122,10 @@ exports.addMemberToGroup = async (req, res) => {
 
 // Create a group
 exports.createGroup = async (req, res) => {
-    const { group_id, group_name, description } = req.body;
+    const {group_name, description } = req.body;
 
     try {
-        const groupExists = await Group.findOne({
+       /* const groupExists = await Group.findOne({
             where: {
                 group_name,
             },
@@ -134,8 +134,8 @@ exports.createGroup = async (req, res) => {
         if (groupExists) {
           return res.status(409).json({ error: 'Group already exists' });
         }
-
-        const newGroup = await Group.create({group_name, description});
+*/
+        const newGroup = await Group.create(group_name, description);
 
         res.status(201).json(newGroup);
     } catch (error) {

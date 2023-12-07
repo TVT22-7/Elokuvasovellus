@@ -1,3 +1,4 @@
+// FriendGroups.js
 import React, { useState, useEffect } from 'react';
 import './FriendGroups.css';
 import Navigation from '../../components/Navigation/Navigation';
@@ -6,6 +7,8 @@ function FriendGroups() {
     const [newGroupName, setNewGroupName] = useState('');
     const [newGroupDescription, setNewGroupDescription] = useState('');
     const [friendGroups, setFriendGroups] = useState([]);
+    const [selectedGroup, setSelectedGroup] = useState(null);
+    const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
         fetchGroupsFromDatabase();
@@ -15,7 +18,6 @@ function FriendGroups() {
         try {
             const response = await fetch('http://localhost:4000/api/groups');
             const data = await response.json();
-            console.log('Fetched groups:', data);
             setFriendGroups(data);
         } catch (error) {
             console.error('Error fetching groups from the database:', error);
@@ -40,10 +42,13 @@ function FriendGroups() {
                         headers: {
                             'Content-Type': 'application/json',
                         },
-                        body: JSON.stringify({ name: newGroupName }),
+                        body: JSON.stringify({
+                            group_name: newGroupName,
+                            description: newGroupDescription,
+                        }),
                     }
-                ); // <-- Removed the extra `}` here
-    
+                );
+
                 if (response.ok) {
                     fetchGroupsFromDatabase();
                     setNewGroupName('');
@@ -57,6 +62,28 @@ function FriendGroups() {
         }
     };
 
+    const handleGroupClick = (group) => {
+        setSelectedGroup(group);
+        setShowModal(true);
+    };
+
+    const Modal = ({ onClose }) => {
+        return (
+            <div className="modal">
+                <div className="modal-content">
+                    <span className="close" onClick={onClose}>&times;</span>
+                    {selectedGroup && (
+                        <div>
+                            <h2>{selectedGroup.group_name}</h2>
+                            <p>{selectedGroup.description}</p>
+                            {/* Lisää käyttäjän lisäämiseen tarvittava logiikka tähän */}
+                        </div>
+                    )}
+                </div>
+            </div>
+        );
+    };
+
     return (
         <div className="friend-container">
             <Navigation />
@@ -64,7 +91,9 @@ function FriendGroups() {
             <ul className="friend-list">
                 {friendGroups.length > 0 ? (
                     friendGroups.map((group) => (
-                        <li key={group.group_id}>{group.group_name}</li>
+                        <li key={group.group_id} onClick={() => handleGroupClick(group)}>
+                            {group.group_name}
+                        </li>
                     ))
                 ) : (
                     <p>No groups found</p>
@@ -85,6 +114,8 @@ function FriendGroups() {
                 />
                 <button onClick={handleCreateGroup}>Create Group</button>
             </div>
+
+            {showModal && <Modal onClose={() => setShowModal(false)} />}
         </div>
     );
 }

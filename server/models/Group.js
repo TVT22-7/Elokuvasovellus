@@ -11,7 +11,7 @@ const Group = {
     },
     create: async (group_name, description) => {
         //creating a new group
-        return await db.one('INSERT INTO groups (group_id, name, description) VALUES ($1, $2, $3) RETURNING *', [group_name, description]);
+        return await db.one('INSERT INTO groups (group_name, description) VALUES ($1, $2) RETURNING *', [group_name, description]);
     },
     update: async (id, groupData) => {
         //updating a group
@@ -19,7 +19,7 @@ const Group = {
     },
     delete: async (id) => {
         //deleting a group
-        return await db.oneOrNone('DELETE FROM groups WHERE group_id = $1', id);
+        return await db.oneOrNone('DELETE FROM groups WHERE group_id = $1', [id]);
     }
 };
 
