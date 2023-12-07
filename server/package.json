@@ -18,6 +18,7 @@
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^7.6.3",
+    "parser": "^0.1.4",
     "pg": "^8.11.3",
     "pg-promise": "^11.5.4",
     "sequelize": "^6.35.0"
