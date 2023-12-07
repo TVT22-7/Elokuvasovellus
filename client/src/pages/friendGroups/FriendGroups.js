@@ -5,6 +5,7 @@ import Navigation from '../../components/Navigation/Navigation';
 
 function FriendGroups() {
     const [newGroupName, setNewGroupName] = useState('');
+    const [newDescription, setNewDescription] = useState('');
     const [friendGroups, setFriendGroups] = useState([]);
 
     useEffect(() => {
@@ -26,6 +27,10 @@ function FriendGroups() {
         setNewGroupName(e.target.value);
     };
 
+    const handleDescriptionChange = (e) => {
+        setNewDescription(e.target.value);
+    };
+
     const createGroup = async () => {
         if (newGroupName.trim() !== '') {
             try {
@@ -36,7 +41,9 @@ function FriendGroups() {
                         headers: {
                             'Content-Type': 'application/json',
                         },
-                        body: JSON.stringify({ name: newGroupName }),
+                        body: JSON.stringify({ group_name: newGroupName, description: newDescription }),
+
+
                     }
                 );
 
@@ -70,7 +77,13 @@ function FriendGroups() {
                     type="text"
                     placeholder="Enter group name"
                     value={newGroupName}
-                    onChange={handleGroupNameChange}
+                    onChange={handleGroupNameChange}   
+                />
+                <input
+                    type="text"
+                    placeholder="Describe your group"
+                    value={newDescription}
+                    onChange={handleDescriptionChange}
                 />
                 <button onClick={createGroup}>Create Group</button>
             </div>
