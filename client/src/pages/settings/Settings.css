@@ -1,12 +1,17 @@
-.App {
-    font-family: "Arial", sans-serif;
-    text-align: center;
-    margin-top: 50px;
+  #light .asetukset {
+    background:color #fff;  
   }
-  #light {
-    background-color: #fff;  
+  #dark .asetukset{
+    background:color #000;
   }
-  #dark {
-    background-color: #000;
+  .asetukset{
+    height: 100vh;
   }
+  
+    #light .App {
+      background:color #fff;  
+    }
+    #dark .App{
+      background:color #000;
+    }
   

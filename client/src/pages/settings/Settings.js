@@ -14,7 +14,7 @@ function Settings() {
 
 
   return (
-    <div>
+    <div className='asetukset'>
       <Navigation />
       <h1>Settings</h1>
       
