@@ -60,6 +60,47 @@ function FriendGroups() {
         }
     };
 
+<<<<<<< Updated upstream
+=======
+    const handleGroupClick = (group) => {
+        setSelectedGroup(group);
+        setShowModal(true);
+    };
+
+    const Modal = ({ onClose }) => {
+        return (
+            <div className="modal">
+                <div className="modal-content">
+                    <span className="close" onClick={onClose}>&times;</span>
+                    {selectedGroup && (
+                        <div className='Group-page'>
+                            <h2>{selectedGroup.group_name}</h2>
+                            <p>{selectedGroup.description}</p>
+                            {/* Lisää käyttäjän lisäämiseen tarvittava logiikka tähän */
+
+                            <input 
+                            type="text" 
+                            className='addTogroup-input' 
+                            placeholder="Add user in to this fancy group!" />
+                            value={newGroupMember}
+
+                            <ul className='group-users'>
+                                {selectedGroup.users.map((user) => (
+                                    <li key={user.user_id}>{user.username}</li>
+                                ))}
+                            </ul>
+
+                                    
+
+                            }
+                        </div>
+                    )}
+                </div>
+            </div>
+        );
+    };
+
+>>>>>>> Stashed changes
     return (
         <div className="friend-container">
             <Navigation />
