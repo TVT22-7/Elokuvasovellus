@@ -22,6 +22,7 @@ exports.getGroup = async (req, res) => {
             res.status(404).send('Group not found');
         }
     } catch (err) {
+        console.log(err);
         res.status(500).send(err.message);
     }
 };
@@ -98,7 +99,9 @@ exports.addMemberToGroup = async (req, res) => {
 // Delete a group
 exports.deleteGroup = async (req, res) => {
     try {
-        const groupId =req.params.groupId;
+        const groupId = req.params.groupId;
+        console.log('Deleting group with id: ', groupId);
+        await Group.delete(groupId);
         res.send({ message: 'Group removed' });
     } catch (error) {
         await Group.delete(groupId);
