@@ -1,5 +1,6 @@
 const GroupMembers = require('../models/GroupMembers');
 const Group = require('../models/Group');
+const { use } = require('chai');
 
 
 // Get all groups
@@ -111,20 +112,12 @@ exports.deleteGroup = async (req, res) => {
 
 // Create a group
 exports.createGroup = async (req, res) => {
-    const { group_name, description } = req.body;
+    const { group_name, description} = req.body;
+    owner_id = req.user_id;
 
     try {
-       /* const groupExists = await Group.findOne({
-            where: {
-                group_name,
-            },
-        });
-
-        if (groupExists) {
-            return res.status(409).json({ error: 'Group already exists' });
-        } */
-
-        const newGroup = await Group.create(group_name, description);
+      
+        const newGroup = await Group.create(group_name, description, owner_id);
 
         res.status(201).json(newGroup);
     } catch (error) {

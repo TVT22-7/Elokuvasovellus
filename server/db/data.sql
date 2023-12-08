@@ -17,6 +17,7 @@ CREATE TABLE
     groups (
         group_id SERIAL PRIMARY KEY,
         group_name VARCHAR(255) UNIQUE NOT NULL,
+        owner_id INT REFERENCES users(user_id),
         description TEXT
     );
 

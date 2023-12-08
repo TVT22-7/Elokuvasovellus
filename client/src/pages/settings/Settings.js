@@ -18,7 +18,7 @@ function Settings() {
       <Navigation />
       <h1>Settings</h1>
       
-      <button onClick={handleDeleteAccount}>Delete Account</button>
+      <button className='Delete-Acc' onClick={handleDeleteAccount}>Delete Account</button>
       
       
     </div>
