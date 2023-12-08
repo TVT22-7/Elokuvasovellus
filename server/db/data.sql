@@ -1,3 +1,4 @@
+-- Active: 1699434091546@@dpg-cl5kp3s72pts73eno220-a.frankfurt-postgres.render.com@5432@elokuvasovellus_0lmg
 CREATE DATABASE elokuvasovellus;
 
 -- User Table
@@ -15,9 +16,8 @@ CREATE TABLE
 CREATE TABLE
     groups (
         group_id SERIAL PRIMARY KEY,
-        name VARCHAR(255) NOT NULL,
-        description TEXT,
-        owner_id INT REFERENCES users(user_id)
+        group_name VARCHAR(255) UNIQUE NOT NULL,
+        description TEXT
     );
 
 -- Group Members Table
@@ -89,9 +89,10 @@ CREATE TABLE
     );
 
 INSERT INTO
-    users (id, name, user_email)
+    users (user_id, username, user_email, password)
 VALUES (
         '1',
-        'leevi',
-        'leevi@example.com'
+        'Otso',
+        'mail@example.com',
+        '1234'
     );
