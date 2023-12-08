@@ -1,5 +1,6 @@
 const GroupMembers = require('../models/GroupMembers');
 const Group = require('../models/Group');
+const { use } = require('chai');
 
 
 // Get all groups
@@ -16,17 +17,17 @@ exports.getGroups = async (req, res) => {
 exports.getGroup = async (req, res) => {
     try {
         const group = await Group.findById(req.params.groupId);
-
         if (group) {
             res.json(group);
         } else {
             res.status(404).send('Group not found');
         }
     } catch (err) {
-        console.error(err);
-        res.status(500).send('Internal Server Error');
+        console.log(err);
+        res.status(500).send(err.message);
     }
 };
+
 // Get all group members
 exports.getGroupMembers = async (req, res) => {
     try {
@@ -64,7 +65,7 @@ exports.updateGroupMember = async (req, res) => {
 // Delete a group member
 exports.deleteGroupMember = async (req, res) => {
     try {
-        await GroupMembers.delete(req.params.id);
+        await GroupMembers.delete(req.params.groupId);
         res.send({ message: 'Group member removed' });
     } catch (error) {
         res.status(500).send(error.message);
@@ -96,49 +97,27 @@ exports.addMemberToGroup = async (req, res) => {
     }
 };
 
-
-    // Delete a group
-   /* exports.deleteGroup = async (req, res) => {
-        try {
-            await Group.delete(req.params.id); // pass the id directly
-            res.send({ message: 'Group removed' });
-        } catch (error) {
-            res.status(500).send(error.message);
-        }
-};*/
-
 // Delete a group
 exports.deleteGroup = async (req, res) => {
     try {
         const groupId = req.params.groupId;
-        console.log('Deleting group with ID:', groupId);
+        console.log('Deleting group with id: ', groupId);
         await Group.delete(groupId);
         res.send({ message: 'Group removed' });
     } catch (error) {
-        console.error('Error deleting group:', error);
+        await Group.delete(groupId);
         res.status(500).send(error.message);
     }
 };
+
 // Create a group
 exports.createGroup = async (req, res) => {
-
-    const { group_name, description } = req.body;
-
+    const { group_name, description} = req.body;
+    owner_id = req.user_id;
 
     try {
-       /* const groupExists = await Group.findOne({
-            where: {
-                group_name,
-            },
-        });
-
-        if (groupExists) {
-
-            return res.status(409).json({ error: 'Group already exists' });
-        } */
-
-
-        const newGroup = await Group.create(group_name, description);
+      
+        const newGroup = await Group.create(group_name, description, owner_id);
 
         res.status(201).json(newGroup);
     } catch (error) {

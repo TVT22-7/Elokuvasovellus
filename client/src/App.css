@@ -1,7 +1,15 @@
 .App {
   font-family: "Arial", sans-serif;
   text-align: center;
-  margin-top: 50px;
+  margin-top: -20px;
+}
+#light {
+  background-color: #fff;
+  
+}
+#dark {
+  background-color: rgb(38, 36, 34);
+  color: #fff;
 }
 
 button {
