@@ -1,0 +1,36 @@
+  #light .asetukset {
+    background:color #fff;  
+  }
+  #dark .asetukset{
+    background:color #000;
+  }
+  .asetukset{
+    height: 100dvh;
+  }
+  
+    #light .App {
+      background:color #fff;  
+    }
+    #dark .App{
+      background:color #000;
+    }
+  
+    .Delete-Acc {
+      background-color: #f44336;
+      border: 2px solid #0c0202;
+      color: rgb(255, 255, 255);
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      border-radius: 5px;
+      margin: 4px 2px;
+      cursor: pointer;
+      transition-duration: 0.4s;
+
+    }
+    .Delete-Acc:hover {
+      background-color: #640404;
+      color: white;
+    }
