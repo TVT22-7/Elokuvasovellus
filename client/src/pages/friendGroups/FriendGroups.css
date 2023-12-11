@@ -18,6 +18,7 @@
     list-style: none;
     padding: 50px;
     cursor: pointer;
+    margin-top: 10px;
     
 }
 #dark .friend-list {
@@ -31,6 +32,7 @@
     padding: 10px;
     border-radius: 10px;
     height: 100vh;
+    margin-top: -90px;
 }
 #light .friend-container {
     background-color: #fff;
@@ -41,9 +43,21 @@
 }
 
 .create-group {
-    width: 200px;
-    height: 50px;
+    height: 150px;
     margin: 0 auto;
+    margin-top: -20px;
+    display: flex;
+    margin-left: 50px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(214, 194, 194);
+    border-radius: 10px;
+    width: 300px;
+    height: 200px;
+    padding: 5px;
+    margin-top: -600px;
+    margin-left: 150px;
 }
 
 .home-btn{
@@ -62,7 +76,7 @@
     margin: 0 auto;
     padding: 10px;
     margin-left: 100px;
-    margin-top: -470px;
+    margin-top: 50px;
     cursor: pointer;
     
 }
