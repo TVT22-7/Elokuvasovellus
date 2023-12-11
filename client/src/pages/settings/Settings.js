@@ -4,7 +4,7 @@ import './Settings.css';
 import { useState } from 'react';
 
 function Settings() {
-  const [theme, setTheme] = useState('light');
+  
 
 
 
@@ -12,18 +12,14 @@ function Settings() {
     // Code to handle deleting the account
   };
 
-  const handleEditUI = () => {
-    setTheme(theme === 'light' ? 'dark' : 'light'); // create function to actually change the theme.
-
-  };
 
   return (
-    <div>
+    <div className='asetukset'>
       <Navigation />
       <h1>Settings</h1>
-      <button onClick={handleEditUI}>Change theme</button>
-      <button onClick={handleDeleteAccount}>Delete Account</button>
-      <p>Current theme: {theme}</p>
+      
+      <button className='Delete-Acc' onClick={handleDeleteAccount}>Delete Account</button>
+      
       
     </div>
   );

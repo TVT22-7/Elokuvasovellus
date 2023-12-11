@@ -35,16 +35,19 @@ function FriendGroups() {
     const handleCreateGroup = async () => {
         if (newGroupName.trim() !== '') {
             try {
+                const user_id = (await fetch(`${process.env.REACT_APP_ADDRESS}/api/users`)).json().user_id;
                 const response = await fetch(
                     `${process.env.REACT_APP_ADDRESS}/api/groups/create`,
                     {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
+
                         },
                         body: JSON.stringify({
                             group_name: newGroupName,
                             description: newGroupDescription,
+                            owner_id : user_id
                         }),
                     }
                 );
