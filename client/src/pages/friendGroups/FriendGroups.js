@@ -48,7 +48,7 @@ function FriendGroups() {
                         }),
                     }
                 );
-
+    
                 if (response.ok) {
                     fetchGroupsFromDatabase();
                     setNewGroupName('');
