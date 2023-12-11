@@ -55,6 +55,7 @@ function Auth() {
 
 
   const viewLogin = (status) => { 
+
     setError(null);
     setIsLogin(status);
   };
