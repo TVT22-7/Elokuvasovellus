@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import './FriendGroups.css';
 import Navigation from '../../components/Navigation/Navigation';
+import { useCookies } from 'react-cookie'; // Add this import statement
 
 function FriendGroups() {
     const [newGroupName, setNewGroupName] = useState('');
@@ -9,6 +10,9 @@ function FriendGroups() {
     const [friendGroups, setFriendGroups] = useState([]);
     const [selectedGroup, setSelectedGroup] = useState(null);
     const [showModal, setShowModal] = useState(false);
+    const [cookies, setCookie] = useCookies(['AuthToken']); // Initialize cookies
+    
+
 
     useEffect(() => {
         fetchGroupsFromDatabase();
@@ -27,27 +31,52 @@ function FriendGroups() {
     const handleGroupNameChange = (e) => {
         setNewGroupName(e.target.value);
     };
-
+    
     const handleGroupDescriptionChange = (e) => {
         setNewGroupDescription(e.target.value);
+    };
+
+    const parseJwt = (token) => {
+        try {
+            const base64Url = token.split('.')[1];
+            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            const jsonPayload = decodeURIComponent(atob(base64).split('').map((c) => `%${(`00${c.charCodeAt(0).toString(16)}`).slice(-2)}`).join(''));
+    
+            return JSON.parse(jsonPayload);
+        } catch (error) {
+            console.error('Error parsing JWT:', error);
+            return null;  
+        }
     };
 
     const handleCreateGroup = async () => {
         if (newGroupName.trim() !== '') {
             try {
-                const user_id = (await fetch(`${process.env.REACT_APP_ADDRESS}/api/users`)).json().user_id;
+                const authToken = cookies.AuthToken;
+    
+                if (!authToken) {
+                    console.error('Authentication token is not available');
+                    return;
+                }
+    
+                const decodedToken = parseJwt(authToken);
+    
+                if (!decodedToken || !decodedToken.id) {
+                    console.error('User ID is not available');
+                    return;
+                }
+    
                 const response = await fetch(
                     `${process.env.REACT_APP_ADDRESS}/api/groups/create`,
                     {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
-
                         },
                         body: JSON.stringify({
                             group_name: newGroupName,
                             description: newGroupDescription,
-                            owner_id : user_id
+                            owner_id: decodedToken.id, // Corrected parameter name to owner_id
                         }),
                     }
                 );
@@ -64,7 +93,6 @@ function FriendGroups() {
             }
         }
     };
-
     const handleGroupClick = (group) => {
         setSelectedGroup(group);
         setShowModal(true);

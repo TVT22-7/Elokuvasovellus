@@ -23,14 +23,14 @@ function Auth() {
   const handleSubmit = async (e) => { 
     e.preventDefault();
     setError(null);
-
+  
     const endpoint = isLogIn ? 'login' : 'signup';
-
+  
     if (!isLogIn && password !== confirmPassword) {
       setError('Passwords do not match');
       return;
     }
-
+  
     try {
       const response = await fetch(
         `${process.env.REACT_APP_ADDRESS}/api/users/${endpoint}`,
@@ -40,24 +40,27 @@ function Auth() {
           body: JSON.stringify({ username, password }),
         }
       );
-
+  
       if (!response.ok) {
         const errorData = await response.json();
         setError(errorData.message || 'Invalid username or password');
         return;
       }
-
+  
       const data = await response.json();
       setCookie('Username', data.username, { path: '/' });
       setCookie('AuthToken', data.token, { path: '/' });
       
+      // Store the user ID in cookies as well
+      setCookie('UserId', data.userId, { path: '/' });
+  
       navigate('/home');
     } catch (error) {
       setError('An error occurred during login/signup');
       console.error(error);
     }
   };
-
+  
   const viewLogin = (status) => { 
     setError(null);
     setIsLogin(status);
