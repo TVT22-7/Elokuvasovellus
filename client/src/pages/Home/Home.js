@@ -47,44 +47,47 @@ function HomePage() {
     setSearchTerm(e.target.value);
   }
 
-  async function showNews() {
-    try {
-      setLoadingNews(true);
-      const response = await fetch('https://www.finnkino.fi/xml/News/');
-  
-      if (!response.ok) {
-        throw new Error(`Error: ${response.statusText}`);
-      }
-  
-      // Convert XML to text
-      const xmlText = await response.text();
-      console.log(xmlText); // Log XML to console
-  
-      // Parse XML using DOMParser
-      const parser = new DOMParser();
-      const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
-  
-      const articles = xmlDoc.getElementsByTagName('article');
-      const newsList = [];
-  
-      for (let i = 0; i < articles.length; i++) {
-        const article = articles[i];
-        const title = article.getElementsByTagName('title')[0].textContent;
-        const content = article.getElementsByTagName('content')[0].textContent;
-  
-        newsList.push({ id: i, title, content });
-      }
-  
-      setNewsList(newsList);
-      console.log(newsList); // Log newsList to console
-      setErrorNews(null);
-    } catch (error) {
-      setErrorNews(error);  
-    } finally {
-      setLoadingNews(false);
+async function showNews() {
+  try {
+    setLoadingNews(true);
+    const response = await fetch('https://www.finnkino.fi/xml/News/');
+
+    if (!response.ok) {
+      throw new Error(`Error: ${response.statusText}`);
     }
+
+    // Convert XML to text
+    const xmlText = await response.text();
+    console.log(xmlText); // Log XML to console
+
+    // Display XML in an alert
+    alert(xmlText);
+
+    // Parse XML using DOMParser
+    const parser = new DOMParser();
+    const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
+
+    const articles = xmlDoc.getElementsByTagName('article');
+    const newsList = [];
+
+    for (let i = 0; i < articles.length; i++) {
+      const article = articles[i];
+      const title = article.getElementsByTagName('title')[0].textContent;
+      const content = article.getElementsByTagName('content')[0].textContent;
+
+      newsList.push({ id: i, title, content });
+    }
+
+    setNewsList(newsList);
+    console.log(newsList); // Log newsList to console
+    setErrorNews(null);
+  } catch (error) {
+    setErrorNews(error);
+  } finally {
+    setLoadingNews(false);
   }
-  
+}
+
   // Authentication remove cookie
   const handleSignOut = () => {
     removeCookie('AuthToken', { path: '/' });
