@@ -43,7 +43,7 @@
 }
 
 .create-group {
-    height: 50px;
+    height: 150px;
     margin: 0 auto;
     margin-top: -20px;
     display: flex;
@@ -76,7 +76,7 @@
     margin: 0 auto;
     padding: 10px;
     margin-left: 100px;
-    margin-top: -470px;
+    margin-top: 50px;
     cursor: pointer;
     
 }
