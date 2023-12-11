@@ -13,21 +13,15 @@ function Auth() {
   const [error, setError] = useState(null);
   const navigate = useNavigate(); 
 
-  useEffect(() => {
-    const authToken = cookies.AuthToken;
-    if (authToken) {
-      navigate('/home');
-    }
-  }, [cookies, navigate]);
 
-  const handleSubmit = async (e) => { 
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
   
     const endpoint = isLogIn ? 'login' : 'signup';
   
     if (!isLogIn && password !== confirmPassword) {
-      setError('Passwords do not match');
+      setError('Salasanat eivät täsmää');
       return;
     }
   
@@ -43,7 +37,7 @@ function Auth() {
   
       if (!response.ok) {
         const errorData = await response.json();
-        setError(errorData.message || 'Invalid username or password');
+        setError(errorData.message || 'Virheellinen käyttäjänimi tai salasana');
         return;
       }
   
@@ -56,7 +50,7 @@ function Auth() {
   
       navigate('/home');
     } catch (error) {
-      setError('An error occurred during login/signup');
+      setError('Virhe tapahtui kirjautumisen/rekisteröinnin aikana');
       console.error(error);
     }
   };
