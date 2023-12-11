@@ -20,14 +20,14 @@ function Auth() {
     }
   }, [cookies, navigate]);
 
-  const handleSubmit = async (e) => { 
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
 
     const endpoint = isLogIn ? 'login' : 'signup';
 
     if (!isLogIn && password !== confirmPassword) {
-      setError('Passwords do not match');
+      setError('Salasanat eivät täsmää');
       return;
     }
 
@@ -43,22 +43,22 @@ function Auth() {
 
       if (!response.ok) {
         const errorData = await response.json();
-        setError(errorData.message || 'Invalid username or password');
+        setError(errorData.message || 'Virheellinen käyttäjänimi tai salasana');
         return;
       }
 
       const data = await response.json();
       setCookie('Username', data.username, { path: '/' });
       setCookie('AuthToken', data.token, { path: '/' });
-      
+      setCookie('userId', data.userId, { path: '/' }); // Tallenna käyttäjän ID evästeisiin
+
       navigate('/home');
     } catch (error) {
-      setError('An error occurred during login/signup');
+      setError('Virhe tapahtui kirjautumisen/rekisteröinnin aikana');
       console.error(error);
     }
   };
-
-  const viewLogin = (status) => { 
+const viewLogin = (status) => { 
     setError(null);
     setIsLogin(status);
   };

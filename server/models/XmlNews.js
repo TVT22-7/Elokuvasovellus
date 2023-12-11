@@ -1,5 +1,6 @@
 const axios = require('axios');
 const xml2js = require('xml2js');
+const xmlFormatter = require('xml-formatter');
 
 const XmlNews = async () => {
   try {
