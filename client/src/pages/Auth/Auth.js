@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
 import './Auth.css';
 
 
 function Auth() {
   const [cookies, setCookie] = useCookies(['Username', 'AuthToken']);
-  const [isLogIn, setIsLogin] = useState(false); 
+  const [isLogIn, setIsLogin] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState(null);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   useEffect(() => {
     const authToken = cookies.AuthToken;
@@ -27,7 +27,8 @@ function Auth() {
     const endpoint = isLogIn ? 'login' : 'signup';
 
     if (!isLogIn && password !== confirmPassword) {
-      setError('Paasswords do not match');
+    setError('Passwords do not match');
+
       return;
     }
 
@@ -57,7 +58,7 @@ function Auth() {
       console.error(error);
     }
   };
-const viewLogin = (status) => { 
+  const viewLogin = (status) => {
     setError(null);
     setIsLogin(status);
   };
@@ -92,7 +93,7 @@ const viewLogin = (status) => {
             className="create"
             onClick={(e) => handleSubmit(e, isLogIn ? "login" : "signup")}
           />
-          {error && <p>{error}</p>} 
+          {error && <p>{error}</p>}
         </form>
         <div className="auth-options">
           <button className='auth-button'

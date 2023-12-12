@@ -11,7 +11,7 @@
     justify-content: center;
     gap: 30px;
     margin: 50px auto;
-    background-color: rgb(214, 194, 194);
+    background-color: rgb(229, 238, 244);
     max-width: 400px;
     max-height: 1000px;
     border-radius: 20px;
@@ -40,10 +40,21 @@
     color: #fff;
 }
 
-.create-group {
+.create-group{
     width: 200px;
-    height: 50px;
+    height: 200px;
     margin: 0 auto;
+    padding: 30px;
+    gap: 30px;
+    border-radius: 20px;
+    background-color: rgb(229, 238, 244);
+    flex-direction: column;
+    justify-content: center;
+}
+
+#dark .create-group {
+    background-color: rgb(38, 26, 14);
+    color: #fff;
 }
 
 .home-btn{
@@ -55,7 +66,7 @@
     flex-direction: column;
     justify-content: right;
     align-items: center;
-    background-color: rgb(214, 194, 194);
+    background-color: rgb(229, 238, 244);
     border-radius: 10px;
     width: 300px;
     height: 300px;
