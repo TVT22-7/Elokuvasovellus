@@ -17,14 +17,14 @@ function Auth() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
-
+  
     const endpoint = isLogIn ? 'login' : 'signup';
-
+  
     if (!isLogIn && password !== confirmPassword) {
       setError('Salasanat eivät täsmää');
       return;
     }
-
+  
     try {
       const response = await fetch(
         `${process.env.REACT_APP_ADDRESS}/api/users/${endpoint}`,
@@ -34,26 +34,27 @@ function Auth() {
           body: JSON.stringify({ username, password }),
         }
       );
-
+  
       if (!response.ok) {
         const errorData = await response.json();
         setError(errorData.message || 'Virheellinen käyttäjänimi tai salasana');
         return;
       }
-
+  
       const data = await response.json();
       setCookie('Username', data.username, { path: '/' });
       setCookie('AuthToken', data.token, { path: '/' });
-      setCookie('userId', data.userId, { path: '/' }); // Tallenna käyttäjän ID evästeisiin
-
+      
+      // Store the user ID in cookies as well
+      setCookie('UserId', data.userId, { path: '/' });
+  
       navigate('/home');
     } catch (error) {
       setError('Virhe tapahtui kirjautumisen/rekisteröinnin aikana');
       console.error(error);
     }
   };
-
-
+  
   const viewLogin = (status) => { 
 
     setError(null);
