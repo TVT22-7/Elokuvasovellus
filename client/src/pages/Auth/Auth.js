@@ -13,6 +13,12 @@ function Auth() {
   const [error, setError] = useState(null);
   const navigate = useNavigate(); 
 
+  useEffect(() => {
+    const authToken = cookies.AuthToken;
+    if (authToken) {
+      navigate('/home');
+    }
+  }, [cookies, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -52,10 +58,7 @@ function Auth() {
       console.error(error);
     }
   };
-
-
-  const viewLogin = (status) => { 
-
+const viewLogin = (status) => { 
     setError(null);
     setIsLogin(status);
   };
