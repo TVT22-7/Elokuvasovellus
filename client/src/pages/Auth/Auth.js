@@ -33,7 +33,7 @@ function Auth() {
 
     try {
       const response = await fetch(
-        ${process.env.REACT_APP_ADDRESS}/api/users/${endpoint},
+        `${process.env.REACT_APP_ADDRESS}/api/users/${endpoint}`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
