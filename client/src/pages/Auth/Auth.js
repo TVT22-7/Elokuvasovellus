@@ -13,18 +13,24 @@ function Auth() {
   const [error, setError] = useState(null);
   const navigate = useNavigate(); 
 
+  useEffect(() => {
+    const authToken = cookies.AuthToken;
+    if (authToken) {
+      navigate('/home');
+    }
+  }, [cookies, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
-  
+
     const endpoint = isLogIn ? 'login' : 'signup';
-  
+
     if (!isLogIn && password !== confirmPassword) {
-      setError('Salasanat eivät täsmää');
+      setError('Paasswords do not match');
       return;
     }
-  
+
     try {
       const response = await fetch(
         `${process.env.REACT_APP_ADDRESS}/api/users/${endpoint}`,
@@ -34,29 +40,24 @@ function Auth() {
           body: JSON.stringify({ username, password }),
         }
       );
-  
+
       if (!response.ok) {
         const errorData = await response.json();
-        setError(errorData.message || 'Virheellinen käyttäjänimi tai salasana');
+        setError(errorData.message || 'Wrong credentials');
         return;
       }
-  
-      const data = await response.json();
+    const data = await response.json();
       setCookie('Username', data.username, { path: '/' });
       setCookie('AuthToken', data.token, { path: '/' });
-      
-      // Store the user ID in cookies as well
-      setCookie('UserId', data.userId, { path: '/' });
-  
+      setCookie('userId', data.userId, { path: '/' }); // Tallenna käyttäjän ID evästeisiin
+
       navigate('/home');
     } catch (error) {
-      setError('Virhe tapahtui kirjautumisen/rekisteröinnin aikana');
+      setError('An error occurred during authentication');
       console.error(error);
     }
   };
-  
-  const viewLogin = (status) => { 
-
+const viewLogin = (status) => { 
     setError(null);
     setIsLogin(status);
   };
@@ -101,7 +102,7 @@ function Auth() {
                 ? "rgb(255, 255, 255)"
                 : "rgb(188, 188, 188)",
             }}
-          >
+            >
             Sign up
           </button>
           <button className='auth-button'
