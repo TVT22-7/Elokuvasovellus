@@ -120,6 +120,7 @@ exports.addMemberToGroup = async (req, res) => {
    // Create a group
 
 exports.createGroup = async (req, res) => {
+<<<<<<< Updated upstream
     const { group_name, description } = req.body;
 
     try {
@@ -137,6 +138,14 @@ exports.createGroup = async (req, res) => {
             group_name,
             description
         });
+=======
+    const { group_name, description} = req.body;
+    
+
+    try {
+      
+        const newGroup = await Group.create(group_name, description);
+>>>>>>> Stashed changes
 
         res.status(201).json(newGroup);
     } catch (error) {

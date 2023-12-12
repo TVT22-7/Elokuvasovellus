@@ -38,6 +38,7 @@ function FriendGroups() {
                 const response = await fetch('http://localhost:3001/friend-groups', {
 =======
                 const response = await fetch(
+<<<<<<< Updated upstream
                 `${process.env.REACT_APP_ADDRESS}/api/groups/create`, 
                 {
 >>>>>>> Stashed changes
@@ -47,6 +48,21 @@ function FriendGroups() {
                     },
                     body: JSON.stringify({ name: newGroupName }),
                 });
+=======
+                    `${process.env.REACT_APP_ADDRESS}/api/groups/create`,
+                    {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+
+                        },
+                        body: JSON.stringify({
+                            group_name: newGroupName,
+                            description: newGroupDescription,
+                        }),
+                    }
+                );
+>>>>>>> Stashed changes
 
                 if (response.ok) {
                     fetchGroupsFromDatabase();

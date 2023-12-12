@@ -18,7 +18,7 @@ function Navigation() {
           <div className="sivupalkki">
             <button className="close-button" onClick={toggleNav}>Close</button> 
             <ul>
-              <li><Link to="/">Home</Link></li>
+              <li><Link to="/home">Home</Link></li>
               <li><Link to="/settings">Settings</Link></li>
               <li><Link to="/friend-groups">Friend Groups</Link></li>
               <li><Link to="/">Sign Out</Link></li>

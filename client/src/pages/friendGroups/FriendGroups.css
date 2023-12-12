@@ -19,6 +19,17 @@
     background-color: white;
     padding: 10px;
     border-radius: 10px;
+<<<<<<< Updated upstream
+=======
+    height: 100vh;
+}
+#light .friend-container {
+    background-color: #fff;
+}
+#dark .friend-container {
+    background-color: rgb(38, 36, 34);
+    color: #fff;
+>>>>>>> Stashed changes
 }
 
 .create-group {
