@@ -27,7 +27,8 @@ function Auth() {
     const endpoint = isLogIn ? 'login' : 'signup';
 
     if (!isLogIn && password !== confirmPassword) {
-      setError('Passwords do not match');
+    setError('Passwords do not match');
+
       return;
     }
 
@@ -46,8 +47,7 @@ function Auth() {
         setError(errorData.message || 'Wrong credentials');
         return;
       }
-
-      const data = await response.json();
+    const data = await response.json();
       setCookie('Username', data.username, { path: '/' });
       setCookie('AuthToken', data.token, { path: '/' });
       setCookie('userId', data.userId, { path: '/' }); // Tallenna käyttäjän ID evästeisiin
@@ -103,7 +103,7 @@ function Auth() {
                 ? "rgb(255, 255, 255)"
                 : "rgb(188, 188, 188)",
             }}
-          >
+            >
             Sign up
           </button>
           <button className='auth-button'
