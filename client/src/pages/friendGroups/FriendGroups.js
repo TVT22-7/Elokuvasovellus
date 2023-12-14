@@ -16,7 +16,7 @@ function FriendGroups() {
 
     const fetchGroupsFromDatabase = async () => {
         try {
-            const response = await fetch('http://localhost:4000/api/groups');
+            const response = await fetch(`${process.env.REACT_APP_ADDRESS}/api/groups`);
             const data = await response.json();
             setFriendGroups(data);
         } catch (error) {

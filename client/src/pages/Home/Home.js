@@ -22,6 +22,7 @@ function HomePage() {
 
   async function fetchMovies(search) {
     try {
+      //APIKEY SHOULD BE IN .ENV FILE
       const apiKey = "76ab94bfa95ebbf5192e4f452207a827";
       const endpoint = search
         ? `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${search}`
